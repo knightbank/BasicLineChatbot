@@ -64,11 +64,13 @@ function handleMessageEvent(event) {
       // 'packageId': '0',
       // 'stickerId': '1'
     },
-    // {
+    {
     //   type: 'sticker',
     //   packageId: "0",
     //   stickerId: "100080"
-    // }
+      type: 'text',
+      text: 'สวัสดีครัช2 '+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    }
   ]
 
 
