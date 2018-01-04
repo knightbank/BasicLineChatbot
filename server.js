@@ -41,7 +41,6 @@ function handleEvent(event) {
 
 function handleMessageEvent(event) {
     let msg
-    let msgs
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
@@ -53,7 +52,7 @@ function handleMessageEvent(event) {
 
     let clientText = event.message.text.toLowerCase()
     if(clientText === "hi" || clientText === "hello"){
-      msgs = [{
+      msg = [{
         type: 'text',
         text: 'สวัสดีครัช'+ userProfile.displayName
       },
