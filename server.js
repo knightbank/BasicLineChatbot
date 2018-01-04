@@ -52,26 +52,20 @@ function handleMessageEvent(event) {
     //     text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl + ' ' +event.message.text.toLowerCase()
     // };
 
-    // let clientText = event.message.text.toLowerCase()
-    // if(clientText === "hi" || clientText === "hello"){
-      
-    // }
-
-    msg = [{
-      type: 'text',
-      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
-      // 'type': 'sticker',
-      // 'packageId': '0',
-      // 'stickerId': '1'
-    },
-    {
-      type: 'sticker',
-      packageId: "1",
-      stickerId: "12"
+    let clientText = event.message.text.toLowerCase()
+    if(clientText === "hi" || clientText === "hello"){
+      msg = [{
+          type: 'text',
+          text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+        },
+        {
+          type: 'sticker',
+          packageId: "1",
+          stickerId: "12"
+        }
+      ]
     }
-  ]
-
-
+    
     return client.replyMessage(event.replyToken, msg).then(() => {
       
     })
