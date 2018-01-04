@@ -60,20 +60,21 @@ function handleMessageEvent(event) {
     msg = [{
       type: 'text',
       text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
-    },
-    {
-      type: 'image',
-      originalContentUrl: userProfile.pictureUrl,
-      previewImageUrl: userProfile.pictureUrl
-    }]
+    }
+    ,
+    // {
+    //   type: 'image',
+    //   originalContentUrl: userProfile.pictureUrl,
+    //   previewImageUrl: userProfile.pictureUrl
+    // }
+  ]
 
 
-    client.replyMessage(event.replyToken, msg).then(() => {
-      client.replyMessage(event.replyToken, "Success")
+    return client.replyMessage(event.replyToken, msg).then(() => {
+      
     })
     .catch((err) => {
       // error handling
-      client.replyMessage(event.replyToken, err)
     });
 }
 
