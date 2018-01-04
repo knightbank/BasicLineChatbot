@@ -72,7 +72,7 @@ function handleMessageEvent(event) {
   ]
 
 
-    client.replyMessage(event.replyToken, msg).then(() => {
+    return client.replyMessage(event.replyToken, msg).then(() => {
       
     })
     .catch((err) => {
