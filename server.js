@@ -40,14 +40,29 @@ function handleEvent(event) {
 }
 
 function handleMessageEvent(event) {
+    let msg
+    let msgs
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
 
-    let msg = {
+    // let msg = {
+    //     type: 'text',
+    //     text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl
+    // };
+
+    let clientText = event.message.text.toLowerCase()
+    if(clientText === "hi" || clientText === "hello"){
+      msgs = [{
         type: 'text',
-        text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl
-    };
+        text: 'สวัสดีครัช'+ userProfile.displayName
+      },
+      {
+        'type': 'image',
+        'originalContentUrl': userProfile.pictureUrl,
+        'previewImageUrl': userProfile.pictureUrl
+      }]
+    }
 
     return client.replyMessage(event.replyToken, msg);
 }
