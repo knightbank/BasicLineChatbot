@@ -42,7 +42,7 @@ function handleEvent(event) {
 }
 
 function handleMessageEvent(event) {
-    //let msg
+    let msg
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
