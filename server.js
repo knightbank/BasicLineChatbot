@@ -40,12 +40,12 @@ function handleEvent(event) {
 }
 
 function handleMessageEvent(event) {
-    let msg
+    
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
 
-    msg = {
+    let msg = {
         type: 'text',
         text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
     };
