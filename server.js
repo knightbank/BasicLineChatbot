@@ -46,12 +46,6 @@ function handleMessageEvent(event) {
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
-
-    // msg = {
-    //     type: 'text',
-    //     text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl + ' ' +event.message.text.toLowerCase()
-    // };
-
     let clientText = event.message.text.toLowerCase()
     if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
       msg = [{
