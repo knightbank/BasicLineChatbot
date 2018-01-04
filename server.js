@@ -43,10 +43,10 @@ function handleMessageEvent(event) {
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
-    
+
     let msg = {
         type: 'text',
-        text: 'สวัสดีครัช' + userProfile
+        text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl
     };
 
     return client.replyMessage(event.replyToken, msg);
