@@ -62,9 +62,9 @@ function handleMessageEvent(event) {
       text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
     },
     {
-      type: 'image',
-      originalContentUrl: userProfile.pictureUrl,
-      previewImageUrl: ""
+      type: 'sticker',
+      packageId: "0",
+      stickerId: "100080"
     }
   ]
 
