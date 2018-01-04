@@ -68,7 +68,13 @@ function handleMessageEvent(event) {
     }]
 
 
-    return client.replyMessage(event.replyToken, msg);
+    client.replyMessage(event.replyToken, msg).then(() => {
+      client.replyMessage(event.replyToken, "Success")
+    })
+    .catch((err) => {
+      // error handling
+      client.replyMessage(event.replyToken, err)
+    });
 }
 
 app.set('port', (process.env.PORT || 5000));
