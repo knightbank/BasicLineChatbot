@@ -52,16 +52,18 @@ function handleMessageEvent(event) {
 
     let clientText = event.message.text.toLowerCase()
     if(clientText === "hi" || clientText === "hello"){
-      msg = [{
-        type: 'text',
-        text: 'สวัสดีครัช'+ userProfile.displayName
-      },
-      {
-        type: 'image',
-        originalContentUrl: userProfile.pictureUrl,
-        previewImageUrl: userProfile.pictureUrl
-      }]
+      
     }
+
+    msg = [{
+      type: 'text',
+      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    },
+    {
+      type: 'image',
+      originalContentUrl: userProfile.pictureUrl,
+      previewImageUrl: userProfile.pictureUrl
+    }]
 
     return client.replyMessage(event.replyToken, msg);
 }
