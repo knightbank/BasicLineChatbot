@@ -58,11 +58,11 @@ function handleMessageEvent(event) {
     // }
 
     msg = [{
-      // type: 'text',
-      // text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
-      type: 'sticker',
-      packageId: "0",
-      stickerId: "100080"
+      type: 'text',
+      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+      // type: 'sticker',
+      // packageId: "0",
+      // stickerId: "100080"
     },
     // {
     //   type: 'sticker',
