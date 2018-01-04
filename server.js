@@ -60,13 +60,12 @@ function handleMessageEvent(event) {
     msg = [{
       type: 'text',
       text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    },
+    {
+      type: 'image',
+      originalContentUrl: userProfile.pictureUrl,
+      previewImageUrl: ""
     }
-    ,
-    // {
-    //   type: 'image',
-    //   originalContentUrl: userProfile.pictureUrl,
-    //   previewImageUrl: userProfile.pictureUrl
-    // }
   ]
 
 
