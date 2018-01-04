@@ -58,9 +58,9 @@ function handleMessageEvent(event) {
         text: 'สวัสดีครัช'+ userProfile.displayName
       },
       {
-        'type': 'image',
-        'originalContentUrl': userProfile.pictureUrl,
-        'previewImageUrl': userProfile.pictureUrl
+        type: 'image',
+        originalContentUrl: userProfile.pictureUrl,
+        previewImageUrl: userProfile.pictureUrl
       }]
     }
 
