@@ -18,6 +18,17 @@ app.post('/webhook', line.middleware(config), (req, res) => {
         .then((result) => res.json(result));
 });
 
+app.use((err, req, res, next) => {
+  if (err instanceof SignatureValidationFailed) {
+    res.status(401).send(err.signature)
+    return
+  } else if (err instanceof JSONParseError) {
+    res.status(400).send(err.raw)
+    return
+  }
+  next(err) // will throw default 500
+})
+
 function handleEvent(event) {
 
     console.log(event);
@@ -30,7 +41,7 @@ function handleEvent(event) {
 
 function handleMessageEvent(event) {
     var msg = {
-        type: 'text'+ displayName,
+        type: 'text'+ event.displayName,
         text: 'สวัสดีครัช'
     };
 
