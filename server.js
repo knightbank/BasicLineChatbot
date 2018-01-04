@@ -58,11 +58,11 @@ function handleMessageEvent(event) {
     // }
 
     msg = [{
-      // type: 'text',
-      // text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
-      'type': 'sticker',
-      'packageId': '0',
-      'stickerId': '1'
+      type: 'text',
+      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+      // 'type': 'sticker',
+      // 'packageId': '0',
+      // 'stickerId': '1'
     },
     // {
     //   type: 'sticker',
@@ -72,7 +72,7 @@ function handleMessageEvent(event) {
   ]
 
 
-    return client.replyMessage(event.replyToken, msg).then(() => {
+    client.replyMessage(event.replyToken, msg).then(() => {
       
     })
     .catch((err) => {
