@@ -42,7 +42,7 @@ function handleEvent(event) {
 function handleMessageEvent(event) {
     var msg = {
         type: 'text',
-        text: 'สวัสดีครัช' + event.source.userId
+        text: 'สวัสดีครัช' + client.getProfile(event.source.userId).displayName
     };
 
     return client.replyMessage(event.replyToken, msg);
