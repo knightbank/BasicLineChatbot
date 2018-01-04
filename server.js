@@ -30,7 +30,7 @@ function handleEvent(event) {
 
 function handleMessageEvent(event) {
     var msg = {
-        type: 'text',
+        type: 'text'+ displayName,
         text: 'สวัสดีครัช'
     };
 
