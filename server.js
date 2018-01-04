@@ -45,7 +45,7 @@ function handleMessageEvent(event) {
       userProfile = profile
     });
 
-    let msg = {
+    msg = {
         type: 'text',
         text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
     };
