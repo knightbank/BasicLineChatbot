@@ -40,9 +40,10 @@ function handleEvent(event) {
 }
 
 function handleMessageEvent(event) {
-    var msg = {
+    let userProfile = client.getProfile(event.source.userId)
+    let msg = {
         type: 'text',
-        text: 'สวัสดีครัช' + client.getProfile(event.source.userId).then(profile)
+        text: 'สวัสดีครัช' + userProfile.displayName
     };
 
     return client.replyMessage(event.replyToken, msg);
