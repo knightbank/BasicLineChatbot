@@ -41,8 +41,8 @@ function handleEvent(event) {
 
 function handleMessageEvent(event) {
     var msg = {
-        type: 'text'+ event.displayName,
-        text: 'สวัสดีครัช'
+        type: 'text',
+        text: 'สวัสดีครัช' + event.displayName
     };
 
     return client.replyMessage(event.replyToken, msg);
