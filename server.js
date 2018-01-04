@@ -53,10 +53,10 @@ function handleMessageEvent(event) {
     // };
 
     let clientText = event.message.text.toLowerCase()
-    if(clientText === "hi" || clientText === "hello"){
+    if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
       msg = [{
           type: 'text',
-          text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+          text: 'สวัสดีครัช '+ userProfile.displayName
         },
         {
           type: 'sticker',
@@ -65,7 +65,7 @@ function handleMessageEvent(event) {
         }
       ]
     }
-    
+
     return client.replyMessage(event.replyToken, msg).then(() => {
       
     })
