@@ -8,6 +8,8 @@ const app = express();
 const config = {
     channelAccessToken: process.env.channelAccessToken,
     channelSecret: process.env.channelSecret
+    // channelAccessToken : "s0FohKZ92RQ/5iPlFAuy9H5kDhW22LDd/kgEddllK/0YebKYBJygtfe7LhTE4k063Xvrdzbz4tvij/p7BmBD1agA9E93HmcH8/k2aq1egRzsa4iFlbHI2Z3R8zRgY96R8wbNOX7jKumFT3BzzTwtBwdB04t89/1O/w1cDnyilFU=",
+    // channelSecret : "549586180de361d0cbf31b02ec343d06"
 };
 
 const client = new line.Client(config);
@@ -40,14 +42,31 @@ function handleEvent(event) {
 }
 
 function handleMessageEvent(event) {
+    let msg
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
 
-    let msg = {
-        type: 'text',
-        text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl
-    };
+    // let msg = {
+    //     type: 'text',
+    //     text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl + ' ' +event.message.text.toLowerCase()
+    // };
+
+    let clientText = event.message.text.toLowerCase()
+    if(clientText === "hi" || clientText === "hello"){
+      
+    }
+
+    msg = [{
+      type: 'text',
+      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    },
+    {
+      type: 'image',
+      originalContentUrl: userProfile.pictureUrl,
+      previewImageUrl: userProfile.pictureUrl
+    }]
+
 
     return client.replyMessage(event.replyToken, msg);
 }
