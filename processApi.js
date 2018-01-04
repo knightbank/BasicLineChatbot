@@ -2,15 +2,27 @@
 //https://stackoverflow.com/questions/14208707/parsing-json-in-nodejs
 
 let request = require("request")
+let rp = require('request-promise');
 
-let url = "https://api.coinmarketcap.com/v1/ticker/"
+let getCoinMarketCapTicker = () => {
+    let url = "https://api.coinmarketcap.com/v1/ticker/"
+    let strBody = ""
 
-request({
-    url: url,
-    json: true
-}, function (error, response, body) {
+    let options = {
+        uri: url,
+        json: true // Automatically parses the JSON string in the response
+    };
+    
+    rp(options)
+        .then(function (repos) {
+            console.log('User has %d repos', repos.length);
+            return respos
+        })
+        .catch(function (err) {
+            // API call failed...
+        });
+    //console.log('url : ',url);
+    //console.log(strBody);
+}
 
-    if (!error && response.statusCode === 200) {
-        console.log(body) // Print the json response
-    }
-})
+module.exports = getCoinMarketCapTicker;
