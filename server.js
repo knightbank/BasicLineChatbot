@@ -50,10 +50,10 @@ function handleMessageEvent(event) {
         text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
     };
 
-    let clientText = event.message.text.toLowerCase()
-    if(clientText === "hi" || clientText === "hello"){
+    // let clientText = event.message.text.toLowerCase()
+    // if(clientText === "hi" || clientText === "hello"){
       
-    }
+    // }
 
     // msg = [{
     //   type: 'text',
