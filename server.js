@@ -45,25 +45,25 @@ function handleMessageEvent(event) {
       userProfile = profile
     });
 
-    // let msg = {
-    //     type: 'text',
-    //     text: 'สวัสดีครัช'+ userProfile.displayName + ' ' + userProfile.pictureUrl
-    // };
+    let msg = {
+        type: 'text',
+        text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    };
 
     let clientText = event.message.text.toLowerCase()
     if(clientText === "hi" || clientText === "hello"){
       
     }
 
-    msg = [{
-      type: 'text',
-      text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
-    },
-    {
-      type: 'image',
-      originalContentUrl: userProfile.pictureUrl,
-      previewImageUrl: userProfile.pictureUrl
-    }]
+    // msg = [{
+    //   type: 'text',
+    //   text: 'สวัสดีครัช'+ userProfile.displayName + ' ' +event.message.text.toLowerCase()
+    // },
+    // {
+    //   type: 'image',
+    //   originalContentUrl: userProfile.pictureUrl,
+    //   previewImageUrl: userProfile.pictureUrl
+    // }]
 
     return client.replyMessage(event.replyToken, msg);
 }
