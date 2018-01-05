@@ -77,13 +77,6 @@ let handleMessageEvent = event => {
             type: 'text',
             text: 'Chg%7D = '+ JsonObj[0]["percent_change_7d"]
           }
-
-          return client.replyMessage(event.replyToken, msg).then(() => {
-      
-          })
-          .catch((err) => {
-            console.log(err);
-          });
       })
       .catch(error => {
           // Handle errors of asyncFunc1() and asyncFunc2()
@@ -139,7 +132,7 @@ let getStringMessage = clientText => {
         // JsonObj.forEach(element => {
         //     console.log(element["name"]);
         // });
-        msg = {
+        return msg = {
           type: 'text',
           text: JsonObj[0]["percent_change_7d"]
         }
