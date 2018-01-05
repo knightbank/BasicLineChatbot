@@ -8,10 +8,10 @@ require('dotenv').config();
 const app = express();
 
 const config = {
-    // channelAccessToken: process.env.channelAccessToken,
-    // channelSecret: process.env.channelSecret
-    channelAccessToken : "s0FohKZ92RQ/5iPlFAuy9H5kDhW22LDd/kgEddllK/0YebKYBJygtfe7LhTE4k063Xvrdzbz4tvij/p7BmBD1agA9E93HmcH8/k2aq1egRzsa4iFlbHI2Z3R8zRgY96R8wbNOX7jKumFT3BzzTwtBwdB04t89/1O/w1cDnyilFU=",
-    channelSecret : "549586180de361d0cbf31b02ec343d06"
+    channelAccessToken: process.env.channelAccessToken,
+    channelSecret: process.env.channelSecret
+    // channelAccessToken : "s0FohKZ92RQ/5iPlFAuy9H5kDhW22LDd/kgEddllK/0YebKYBJygtfe7LhTE4k063Xvrdzbz4tvij/p7BmBD1agA9E93HmcH8/k2aq1egRzsa4iFlbHI2Z3R8zRgY96R8wbNOX7jKumFT3BzzTwtBwdB04t89/1O/w1cDnyilFU=",
+    // channelSecret : "549586180de361d0cbf31b02ec343d06"
 };
 
 const client = new line.Client(config);
@@ -49,22 +49,57 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    msg = getStringMessage(clientText)
-    .then((result) => {
-      return client.replyMessage(event.replyToken, result).then(() => {
+    //msg = getStringMessage(clientText);
+
+    switch(clientText){
+      case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
+        msg = [{
+          type: 'text',
+          text: 'สวัสดีครัช '+ userProfile.displayName
+        },
+        {
+          type: 'sticker',
+          packageId: "1",
+          stickerId: "12"
+        }]
+      break;
       
+      case "btc" || "bitcoin" :
+      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
+      .then((result) => {
+          JsonObj = result;
+          // console.log('Json Object = ',JsonObj);
+          // console.log(JsonObj[0]["id"]);
+          // JsonObj.forEach(element => {
+          //     console.log(element["name"]);
+          // });
+          msg = {
+            type: 'text',
+            text: 'Chg%7D = ',JsonObj[0]["percent_change_7d"]
+          }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(error => {
+          // Handle errors of asyncFunc1() and asyncFunc2()
+          msg = {
+            type: 'text',
+            text: error
+          }
       });
-  })
-  .catch(error => {
-      // Handle errors of asyncFunc1() and asyncFunc2()
-      msg = {
+      break;
+  
+      default : msg = {
         type: 'text',
-        text: error
+        text: new Date()
       }
-  });
+    }
+    
+
+    return client.replyMessage(event.replyToken, msg).then(() => {
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 let getStringMessage = clientText => {
@@ -91,7 +126,7 @@ let getStringMessage = clientText => {
         // JsonObj.forEach(element => {
         //     console.log(element["name"]);
         // });
-        return msg = {
+        msg = {
           type: 'text',
           text: JsonObj[0]["percent_change_7d"]
         }
