@@ -1,5 +1,6 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
+const getJsonStr = require("./processApi");
 
 require('dotenv').config();
 
@@ -41,32 +42,37 @@ function handleEvent(event) {
     }
 }
 
-function handleMessageEvent(event) {
+let handleMessageEvent = event => {
     let msg
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
-      msg = [{
-          type: 'text',
-          text: 'สวัสดีครัช '+ userProfile.displayName
-        },
-        {
-          type: 'sticker',
-          packageId: "1",
-          stickerId: "12"
-        }
-      ]
-    }
+    msg = getStringMessage(clientText);
 
     return client.replyMessage(event.replyToken, msg).then(() => {
       
     })
     .catch((err) => {
-      // error handling
+      console.log(err);
     });
 }
+
+let getStringMessage = clientText => {
+  if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
+    msg = [{
+        type: 'text',
+        text: 'สวัสดีครัช '+ userProfile.displayName
+      },
+      {
+        type: 'sticker',
+        packageId: "1",
+        stickerId: "12"
+      }
+    ]
+  }
+}
+
 
 app.set('port', (process.env.PORT || 5000));
 
