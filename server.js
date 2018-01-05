@@ -70,7 +70,7 @@ let handleMessageEvent = event => {
           msg = {
             type: 'text',
             text: `BTC on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-Price = ${JsonObj[0]["price_usd"]}$ (on THB${JsonObj[0]["price_thb"]}฿)
+Price = ${JsonObj[0]["price_usd"].toLocaleString('en') } $ (on THB ${JsonObj[0]["price_thb"].toLocaleString('en')} ฿)
 Percent Change
   1 Hr. ${JsonObj[0]["percent_change_1h"]}
   24 Hr. ${JsonObj[0]["percent_change_24h"]}
