@@ -91,7 +91,10 @@ let getStringMessage = clientText => {
     })
     .catch(error => {
         // Handle errors of asyncFunc1() and asyncFunc2()
-        console.log(error);
+        msg = {
+          type: 'text',
+          text: error
+        }
     });
     break;
 
