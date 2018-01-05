@@ -61,8 +61,9 @@ let handleMessageEvent = event => {
 
 let getStringMessage = clientText => {
   let msg;
-  if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
-    msg = [{
+  switch(clientText){
+    case "hi" ||"hello" ||'สวัสดี' ||'หวัดดี' :
+      msg = [{
         type: 'text',
         text: 'สวัสดีครัช '+ userProfile.displayName
       },
@@ -70,15 +71,31 @@ let getStringMessage = clientText => {
         type: 'sticker',
         packageId: "1",
         stickerId: "12"
-      }
-    ]
-  }
-  else{
-    msg = {
+      }]
+      break;
+    default : msg = {
       type: 'text',
       text: new Date()
     }
   }
+  // if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
+  //   msg = [{
+  //       type: 'text',
+  //       text: 'สวัสดีครัช '+ userProfile.displayName
+  //     },
+  //     {
+  //       type: 'sticker',
+  //       packageId: "1",
+  //       stickerId: "12"
+  //     }
+  //   ]
+  // }
+  // else{
+  //   msg = {
+  //     type: 'text',
+  //     text: new Date()
+  //   }
+  // }
 
   return msg;
 }
