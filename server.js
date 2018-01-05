@@ -109,7 +109,7 @@ Percent Change
       
     })
     .catch((err) => {
-      console.log(err);
+      return client.replyMessage(event.replyToken, err)
     });
 }
 
