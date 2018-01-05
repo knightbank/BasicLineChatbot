@@ -48,7 +48,7 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    //msg = getStringMessage(clientText);
+    msg = getStringMessage(clientText);
     
 
     return client.replyMessage(event.replyToken, msg).then(() => {
@@ -74,7 +74,7 @@ let getStringMessage = clientText => {
     ]
   }
 
-  return msg;
+  return '16.45',msg;
 }
 
 
