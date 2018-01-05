@@ -77,16 +77,16 @@ let getStringMessage = clientText => {
     
     case "btc" || "bitcoin" :
     getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
-    .then((result) => { // (B)
+    .then((result) => {
         JsonObj = result;
-        console.log('Json Object = ',JsonObj);
-        console.log(JsonObj[0]["id"]);
-        JsonObj.forEach(element => {
-            console.log(element["name"]);
-        });
+        // console.log('Json Object = ',JsonObj);
+        // console.log(JsonObj[0]["id"]);
+        // JsonObj.forEach(element => {
+        //     console.log(element["name"]);
+        // });
         msg = {
           type: 'text',
-          text: JsonObj[0]["symbol"]
+          text: JsonObj[0]["percent_change_7d"]
         }
     })
     .catch(error => {
