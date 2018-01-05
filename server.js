@@ -75,7 +75,7 @@ let handleMessageEvent = event => {
     else{
       msg = {
         type: 'text',
-        text: splitStr[0]+ " " +currencyList
+        text: splitStr[0]+ " " +currencyList[0]
       }
 //       switch(splitStr[0]){
 //         case "price" || "ราคา" :
