@@ -50,8 +50,8 @@ let handleMessageEvent = event => {
     });
     let clientText = event.message.text.toLowerCase()
     msg = getStringMessage(clientText)
-    .then(() => {
-      return client.replyMessage(event.replyToken, msg).then(() => {
+    .then((result) => {
+      return client.replyMessage(event.replyToken, result).then(() => {
       
       })
       .catch((err) => {
