@@ -76,7 +76,7 @@ let getStringMessage = clientText => {
   else{
     msg = {
       type: 'text',
-      text: new Date().getDate()
+      text: new Date()
     }
   }
 
