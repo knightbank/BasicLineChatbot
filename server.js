@@ -93,6 +93,12 @@ let handleMessageEvent = event => {
       }
     }
     
+    if(msg == undefined){
+      msg = {
+        type: 'text',
+        text: 'Msg is Undefined'
+      }
+    }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
       
