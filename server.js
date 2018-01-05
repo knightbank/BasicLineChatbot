@@ -79,9 +79,10 @@ let handleMessageEvent = event => {
         case "price" || "ราคา" :
         jsonfile.readFileSync("./currencyList.json")
         .then(list => {
+
           currencyList = list;
-          getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[splitStr[1]]+"?convert=THB")
-        .then((result) => {
+          getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[String(splitStr[1]).toUpperCase()]+"?convert=THB")
+          .then((result) => {
             JsonObj = result;
             msg = {
               type: 'text',
@@ -107,6 +108,7 @@ Percent Change
               text: error
             }
         });
+
         })
         break;
       }
