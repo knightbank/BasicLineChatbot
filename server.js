@@ -73,37 +73,41 @@ let handleMessageEvent = event => {
       }//end switch
     }
     else{
-      switch(splitStr[0]){
-        case "price" || "ราคา" :
-        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[splitStr[1]]+"?convert=THB")
-        .then((result) => {
-            JsonObj = result;
-            msg = {
-              type: 'text',
-              text: `${String(splitStr[1]).toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
-Percent Change
-  1 Hr. ${JsonObj[0]["percent_change_1h"]}%
-  24 Hr. ${JsonObj[0]["percent_change_24h"]}%
-  7 Days. ${JsonObj[0]["percent_change_7d"]}%`
-            }
-
-            return client.replyMessage(event.replyToken, msg).then(() => {
-        
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch(error => {
-            // Handle errors of asyncFunc1() and asyncFunc2()
-            msg = {
-              type: 'text',
-              text: error
-            }
-        });
-        break;
+      msg = {
+        type: 'text',
+        text: splitStr[0]+ " " +currencyList[splitStr[1]]
       }
+//       switch(splitStr[0]){
+//         case "price" || "ราคา" :
+//         getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[splitStr[1]]+"?convert=THB")
+//         .then((result) => {
+//             JsonObj = result;
+//             msg = {
+//               type: 'text',
+//               text: `${String(splitStr[1]).toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
+// Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
+// Percent Change
+//   1 Hr. ${JsonObj[0]["percent_change_1h"]}%
+//   24 Hr. ${JsonObj[0]["percent_change_24h"]}%
+//   7 Days. ${JsonObj[0]["percent_change_7d"]}%`
+//             }
+
+//             return client.replyMessage(event.replyToken, msg).then(() => {
+        
+//             })
+//             .catch((err) => {
+//               console.log(err);
+//             });
+//         })
+//         .catch(error => {
+//             // Handle errors of asyncFunc1() and asyncFunc2()
+//             msg = {
+//               type: 'text',
+//               text: error
+//             }
+//         });
+//         break;
+//       }
     }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
