@@ -102,7 +102,6 @@ Percent Change
         });
       }// end switch
     }// end inner #1 if
-  }
     
 
     return client.replyMessage(event.replyToken, msg).then(() => {
