@@ -75,7 +75,7 @@ let handleMessageEvent = event => {
           // });
           msg = {
             type: 'text',
-            text: 'Chg%7D = ',JsonObj[0]["percent_change_7d"]
+            text: 'Chg%7D = '+ JsonObj[0]["percent_change_7d"]
           }
       })
       .catch(error => {
