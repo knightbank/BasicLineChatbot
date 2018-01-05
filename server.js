@@ -70,11 +70,11 @@ let handleMessageEvent = event => {
           msg = {
             type: 'text',
             text: `BTC on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en')} (on THB ฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
+Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
 Percent Change
-  1 Hr. ${Number(JsonObj[0]["percent_change_1h"]).toLocaleString('en',{ style: 'percent'})}
-  24 Hr. ${Number(JsonObj[0]["percent_change_24h"]).toLocaleString('en',{ style: 'percent'})}
-  7 Days. ${Number(JsonObj[0]["percent_change_7d"]).toLocaleString('en',{ style: 'percent'})}`
+  1 Hr. ${JsonObj[0]["percent_change_1h"]}
+  24 Hr. ${JsonObj[0]["percent_change_24h"]}
+  7 Days. ${JsonObj[0]["percent_change_7d"]}`
           }
 
           return client.replyMessage(event.replyToken, msg).then(() => {
