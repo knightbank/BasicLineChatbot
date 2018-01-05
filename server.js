@@ -77,6 +77,13 @@ let handleMessageEvent = event => {
             type: 'text',
             text: 'Chg%7D = '+ JsonObj[0]["percent_change_7d"]
           }
+
+          return client.replyMessage(event.replyToken, msg).then(() => {
+      
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch(error => {
           // Handle errors of asyncFunc1() and asyncFunc2()
