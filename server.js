@@ -48,7 +48,19 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    msg = getStringMessage(clientText);
+    //msg = getStringMessage(clientText);
+    if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
+      msg = [{
+          type: 'text',
+          text: 'สวัสดีครัช '+ userProfile.displayName
+        },
+        {
+          type: 'sticker',
+          packageId: "1",
+          stickerId: "12"
+        }
+      ]
+    }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
       
