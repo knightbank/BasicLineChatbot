@@ -73,8 +73,11 @@ let getStringMessage = clientText => {
       }
     ]
   }
+  else{
+    msg = new Date();
+  }
 
-  return '16.45',msg;
+  return msg;
 }
 
 
