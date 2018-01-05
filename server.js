@@ -49,8 +49,55 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    msg = getStringMessage(clientText);
-    
+    //msg = getStringMessage(clientText);
+    switch(clientText){
+      case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
+        msg = [{
+          type: 'text',
+          text: 'สวัสดีครัช '+ userProfile.displayName
+        },
+        {
+          type: 'sticker',
+          packageId: "1",
+          stickerId: "12"
+        }]
+      break;
+      
+      case "btc" || "bitcoin" :
+      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
+      .then((result) => {
+          JsonObj = result;
+          // console.log('Json Object = ',JsonObj);
+          // console.log(JsonObj[0]["id"]);
+          // JsonObj.forEach(element => {
+          //     console.log(element["name"]);
+          // });
+          msg = {
+            type: 'text',
+            text: JsonObj[0]["percent_change_7d"]
+          }
+
+          return client.replyMessage(event.replyToken, msg).then(() => {
+      
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch(error => {
+          // Handle errors of asyncFunc1() and asyncFunc2()
+          msg = {
+            type: 'text',
+            text: error
+          }
+      });
+      break;
+  
+      default : msg = {
+        type: 'text',
+        text: new Date()
+      }
+    }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
       
