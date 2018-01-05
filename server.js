@@ -64,7 +64,7 @@ let handleMessageEvent = event => {
       break;
       
       case "btc" || "bitcoin" :
-      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
+      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin?convert=THB")
       .then((result) => {
           JsonObj = result;
           // console.log('Json Object = ',JsonObj);
@@ -74,7 +74,12 @@ let handleMessageEvent = event => {
           // });
           msg = {
             type: 'text',
-            text: JsonObj[0]["percent_change_7d"]
+            text: `BTC on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
+            Price = ${JsonObj[0]["price_usd"]}$ (on THB${JsonObj[0]["price_thb"]}฿)
+            Percent Change
+            1 Hr. ${JsonObj[0]["percent_change_1h"]}
+            24 Hr. ${JsonObj[0]["percent_change_24h"]}
+            7 Days. ${JsonObj[0]["percent_change_7d"]}`
           }
 
           return client.replyMessage(event.replyToken, msg).then(() => {
