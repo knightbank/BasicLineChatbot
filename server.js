@@ -53,54 +53,58 @@ let handleMessageEvent = event => {
     let splitStr = clientText.split(" ");
     let currencyList = jsonfile.readFileSync("./currencyList.json")
     //msg = getStringMessage(clientText);
-    switch(clientText){
-      case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
-        msg = [{
+    if(splitStr.length<=1){
+      switch(clientText){
+        case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
+          msg = [{
+            type: 'text',
+            text: 'สวัสดีครัช '+ userProfile.displayName
+          },
+          {
+            type: 'sticker',
+            packageId: "1",
+            stickerId: "12"
+          }]
+        break;
+        default : msg = {
           type: 'text',
-          text: 'สวัสดีครัช '+ userProfile.displayName
-        },
-        {
-          type: 'sticker',
-          packageId: "1",
-          stickerId: "12"
-        }]
-      break;
-      
-      case "btc" || "bitcoin" :
-      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin?convert=THB")
-      .then((result) => {
-          JsonObj = result;
-          msg = {
-            type: 'text',
-            text: `BTC on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
-Percent Change
-  1 Hr. ${JsonObj[0]["percent_change_1h"]}%
-  24 Hr. ${JsonObj[0]["percent_change_24h"]}%
-  7 Days. ${JsonObj[0]["percent_change_7d"]}%`
-          }
-
-          return client.replyMessage(event.replyToken, msg).then(() => {
-      
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch(error => {
-          // Handle errors of asyncFunc1() and asyncFunc2()
-          msg = {
-            type: 'text',
-            text: error
-          }
-      });
-      break;
-  
-      default : msg = {
-        type: 'text',
-        text: new Date()
-      }
+          text: new Date()
+        }
     }
+    
+      
+//       case "btc" || "bitcoin" :
+//       getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin?convert=THB")
+//       .then((result) => {
+//           JsonObj = result;
+//           msg = {
+//             type: 'text',
+//             text: `BTC on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
+// Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
+// Percent Change
+//   1 Hr. ${JsonObj[0]["percent_change_1h"]}%
+//   24 Hr. ${JsonObj[0]["percent_change_24h"]}%
+//   7 Days. ${JsonObj[0]["percent_change_7d"]}%`
+//           }
+
+//           return client.replyMessage(event.replyToken, msg).then(() => {
+      
+//           })
+//           .catch((err) => {
+//             console.log(err);
+//           });
+//       })
+//       .catch(error => {
+//           // Handle errors of asyncFunc1() and asyncFunc2()
+//           msg = {
+//             type: 'text',
+//             text: error
+//           }
+//       });
+//       break;
+  
+      
+//     }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
       
