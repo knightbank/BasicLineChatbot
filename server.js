@@ -49,7 +49,7 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    msg = getStringMessage(clientText)
+    getStringMessage(clientText)
     .then((result) => {
       return client.replyMessage(event.replyToken, result).then(() => {
       
