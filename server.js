@@ -8,10 +8,10 @@ require('dotenv').config();
 const app = express();
 
 const config = {
-    channelAccessToken: process.env.channelAccessToken,
-    channelSecret: process.env.channelSecret
-    // channelAccessToken : "s0FohKZ92RQ/5iPlFAuy9H5kDhW22LDd/kgEddllK/0YebKYBJygtfe7LhTE4k063Xvrdzbz4tvij/p7BmBD1agA9E93HmcH8/k2aq1egRzsa4iFlbHI2Z3R8zRgY96R8wbNOX7jKumFT3BzzTwtBwdB04t89/1O/w1cDnyilFU=",
-    // channelSecret : "549586180de361d0cbf31b02ec343d06"
+    // channelAccessToken: process.env.channelAccessToken,
+    // channelSecret: process.env.channelSecret
+    channelAccessToken : "s0FohKZ92RQ/5iPlFAuy9H5kDhW22LDd/kgEddllK/0YebKYBJygtfe7LhTE4k063Xvrdzbz4tvij/p7BmBD1agA9E93HmcH8/k2aq1egRzsa4iFlbHI2Z3R8zRgY96R8wbNOX7jKumFT3BzzTwtBwdB04t89/1O/w1cDnyilFU=",
+    channelSecret : "549586180de361d0cbf31b02ec343d06"
 };
 
 const client = new line.Client(config);
@@ -84,7 +84,7 @@ let getStringMessage = clientText => {
         // JsonObj.forEach(element => {
         //     console.log(element["name"]);
         // });
-        msg = {
+        return msg = {
           type: 'text',
           text: JsonObj[0]["percent_change_7d"]
         }
