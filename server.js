@@ -50,7 +50,7 @@ let handleMessageEvent = event => {
     });
     let clientText = event.message.text.toLowerCase()
     let splitStr = clientText.split(" ");
-    //let currencyList = jsonfile.readFileSync("./currencyList.json")
+    let currencyList = jsonfile.readFileSync("./currencyList.json")
     //msg = getStringMessage(clientText);
     switch(clientText){
       case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
