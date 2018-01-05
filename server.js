@@ -74,7 +74,7 @@ let handleMessageEvent = event => {
     }
     else{
       switch(splitStr[0]){
-        case splitStr[0]=="price" || splitStr[1]=="ราคา" :
+        case "price" || "ราคา" :
         getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[splitStr[1]]+"?convert=THB")
         .then((result) => {
             JsonObj = result;
