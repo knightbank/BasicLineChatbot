@@ -49,70 +49,32 @@ let handleMessageEvent = event => {
       userProfile = profile
     });
     let clientText = event.message.text.toLowerCase()
-    //msg = getStringMessage(clientText);
-
-    switch(clientText){
-      case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
-        msg = [{
-          type: 'text',
-          text: 'สวัสดีครัช '+ userProfile.displayName
-        },
-        {
-          type: 'sticker',
-          packageId: "1",
-          stickerId: "12"
-        }]
-      break;
+    msg = getStringMessage(clientText)
+    .then(() => {
+      return client.replyMessage(event.replyToken, msg).then(() => {
       
-      case "btc" || "bitcoin" :
-      getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
-      .then((result) => {
-          JsonObj = result;
-          // console.log('Json Object = ',JsonObj);
-          // console.log(JsonObj[0]["id"]);
-          // JsonObj.forEach(element => {
-          //     console.log(element["name"]);
-          // });
-          msg = {
-            type: 'text',
-            text: 'Chg%7D = '+ JsonObj[0]["percent_change_7d"]
-          }
-
-          return client.replyMessage(event.replyToken, msg).then(() => {
-      
-          })
-          .catch((err) => {
-            console.log(err);
-          });
       })
-      .catch(error => {
-          // Handle errors of asyncFunc1() and asyncFunc2()
-          msg = {
-            type: 'text',
-            text: error
-          }
+      .catch((err) => {
+        console.log(err);
       });
-      break;
-  
-      default : msg = {
-        type: 'text',
-        text: new Date()
-      }
-    }
-    
-    if(msg == undefined){
-      msg = {
-        type: 'text',
-        text: 'Msg is Undefined'
-      }
-    }
-
-    return client.replyMessage(event.replyToken, msg).then(() => {
-      
     })
     .catch((err) => {
       console.log(err);
     });
+    
+    // if(msg == undefined){
+    //   msg = {
+    //     type: 'text',
+    //     text: 'Msg is Undefined'
+    //   }
+    // }
+
+    // return client.replyMessage(event.replyToken, msg).then(() => {
+      
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
 }
 
 let getStringMessage = clientText => {
