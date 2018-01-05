@@ -1,6 +1,7 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
 const getJsonStr = require("./processApi");
+let JsonObj;
 
 require('dotenv').config();
 
@@ -75,10 +76,23 @@ let getStringMessage = clientText => {
     break;
     
     case "btc" || "bitcoin" :
-    msg = {
-      type: 'text',
-      text: 'BitCoin'
-    }
+    getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
+    .then((result) => { // (B)
+        JsonObj = result;
+        console.log('Json Object = ',JsonObj);
+        console.log(JsonObj[0]["id"]);
+        JsonObj.forEach(element => {
+            console.log(element["name"]);
+        });
+        msg = {
+          type: 'text',
+          text: JsonObj[0]["symbol"]
+        }
+    })
+    .catch(error => {
+        // Handle errors of asyncFunc1() and asyncFunc2()
+        console.log(error);
+    });
     break;
 
     default : msg = {
