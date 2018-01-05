@@ -74,7 +74,7 @@ let handleMessageEvent = event => {
             Percent Change
             1 Hr. ${JsonObj[0]["percent_change_1h"]}
             24 Hr. ${JsonObj[0]["percent_change_24h"]}
-            7 Days. ${JsonObj[0]["percent_change_7d"]}`.replace("\t")
+            7 Days. ${JsonObj[0]["percent_change_7d"]}`.replace("            ")
           }
 
           return client.replyMessage(event.replyToken, msg).then(() => {
