@@ -1,6 +1,7 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
 const getJsonStr = require("./processApi");
+const jsonfile = require('jsonfile');
 let JsonObj;
 
 require('dotenv').config();
@@ -71,7 +72,7 @@ let handleMessageEvent = event => {
   }
   else{
     if(splitStr[0]=="price" || splitStr[0]=="ราคา"){
-      let currencyList = JSON.parse("./currencyList.json")
+      let currencyList = jsonfile.readFileSync("./currencyList.json")
       let currencySymbol = currencyList[splitStr[1]]
       getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencySymbol+"?convert=THB")
       .then((result) => {
