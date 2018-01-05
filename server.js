@@ -79,6 +79,7 @@ let getStringMessage = clientText => {
       type: 'text',
       text: 'BitCoin'
     }
+    break;
 
     default : msg = {
       type: 'text',
