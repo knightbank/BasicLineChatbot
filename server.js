@@ -58,7 +58,7 @@ let handleMessageEvent = event => {
         case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
           msg = [{
             type: 'text',
-            text: 'สวัสดีครัช '+ userProfile.displayName
+            text: 'สวัสดีครัช '+ userProfile.displayName + currencyList["BTC"]
           },
           {
             type: 'sticker',
