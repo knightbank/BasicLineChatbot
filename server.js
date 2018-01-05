@@ -64,7 +64,7 @@ let getStringMessage = clientText => {
   if(clientText === "hi" || clientText === "hello" || clientText === 'สวัสดี' || clientText === 'หวัดดี'){
     msg = [{
         type: 'text',
-        text: 'สวัสดีครัช '+ userProfile.displayName
+        text: 'สวัสดีครับ '+ userProfile.displayName
       },
       {
         type: 'sticker',
@@ -74,7 +74,7 @@ let getStringMessage = clientText => {
     ]
   }
   else{
-    msg = new Date();
+    msg = new Date().getDate();
   }
 
   return msg;
