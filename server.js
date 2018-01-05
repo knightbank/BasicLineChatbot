@@ -70,6 +70,7 @@ let handleMessageEvent = event => {
           type: 'text',
           text: new Date()
         }
+      }
     }
     
       
