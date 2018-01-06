@@ -2,7 +2,7 @@
 //https://stackoverflow.com/questions/14208707/parsing-json-in-nodejs
 
 let request = require("request")
-let getJsonStr = require("./json-promise")
+let getJsonStr = require("./getJsonStr")
 
 require('bluebird');
 const jsonfile = require('jsonfile');
