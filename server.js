@@ -3,6 +3,7 @@ const line = require('@line/bot-sdk');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const jsonfile = require('jsonfile');
 const Sync = require('sync')
+const getJsonStr = require('./getJsonStr')
 let JsonObj;
 
 
@@ -78,11 +79,18 @@ let handleMessageEvent = event => {
       switch(splitStr[0]){
         case "price" || "ราคา" :
 
-        getCoinMarketCapInfo(String(splitStr[1]).toUpperCase())
+        currencyList = jsonfile.readFileSync("./currencyList.json")
+        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[String(splitStr[1]).toUpperCase()]+"?convert=THB")
           .then((result) => {
+            JsonObj = result;
             msg = {
               type: 'text',
-              text: result
+              text: `${String(splitStr[1]).toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
+Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
+Percent Change
+  1 Hr. ${JsonObj[0]["percent_change_1h"]}%
+  24 Hr. ${JsonObj[0]["percent_change_24h"]}%
+  7 Days. ${JsonObj[0]["percent_change_7d"]}%`
             }
 
             return client.replyMessage(event.replyToken, msg).then(() => {
