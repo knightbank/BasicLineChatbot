@@ -1,0 +1,146 @@
+[
+    {
+      "symbol": "BTCTHB",
+      "pairing_id": 1,
+      "primary_currency": "THB",
+      "secondary_currency": "BTC"
+    },
+    {
+      "symbol": "ETHTHB",
+      "pairing_id": 21,
+      "primary_currency": "THB",
+      "secondary_currency": "ETH"
+    },
+    {
+      "symbol": "DASTHB",
+      "pairing_id": 22,
+      "primary_currency": "THB",
+      "secondary_currency": "DAS"
+    },
+    {
+      "symbol": "REPTHB",
+      "pairing_id": 23,
+      "primary_currency": "THB",
+      "secondary_currency": "REP"
+    },
+    {
+      "symbol": "ETHBTC",
+      "pairing_id": 20,
+      "primary_currency": "BTC",
+      "secondary_currency": "ETH"
+    },
+    {
+      "stymbol": "BCHTHB",
+      "pairing_id": 27,
+      "primary_currency": "THB",
+      "secondary_currency": "BCH"
+    },
+    {
+      "symbol": "DOGBTC",
+      "pairing_id": 4,
+      "primary_currency": "BTC",
+      "secondary_currency": "DOG"
+    },
+    {
+      "symbol": "EVXTHB",
+      "pairing_id": 28,
+      "primary_currency": "THB",
+      "secondary_currency": "EVX"
+    },
+    {
+      "symbol": "FTCBTC",
+      "pairing_id": 6,
+      "primary_currency": "BTC",
+      "secondary_currency": "FTC"
+    },
+    {
+      "symbol": "GNOTHB",
+      "pairing_id": 24,
+      "primary_currency": "THB",
+      "secondary_currency": "GNO"
+    },
+    {
+      "symbol": "HYPBTC",
+      "pairing_id": 13,
+      "primary_currency": "BTC",
+      "secondary_currency": "HYP"
+    },
+    {
+      "symbol": "LTCTHB",
+      "pairing_id": 30,
+      "primary_currency": "THB",
+      "secondary_currency": "LTC"
+    },
+    {
+      "symbol": "LTCBTC",
+      "pairing_id": 2,
+      "primary_currency": "BTC",
+      "secondary_currency": "LTC"
+    },
+    {
+      "symbol": "NMCBTC",
+      "pairing_id": 3,
+      "primary_currency": "BTC",
+      "secondary_currency": "NMC"
+    },
+    {
+      "symbol": "OMGTHB",
+      "pairing_id": 26,
+      "primary_currency": "THB",
+      "secondary_currency": "OMG"
+    },
+    {
+      "symbol": "PNDBTC",
+      "pairing_id": 14,
+      "primary_currency": "BTC",
+      "secondary_currency": "PND"
+    },
+    {
+      "symbol": "PPCBTC",
+      "pairing_id": 5,
+      "primary_currency": "BTC",
+      "secondary_currency": "PPC"
+    },
+    {
+      "symvol": "QRKBTC",
+      "pairing_id": 19,
+      "primary_currency": "BTC",
+      "secondary_currency": "QRK"
+    },
+    {
+      "symbol": "XCNBTC",
+      "pairing_id": 15,
+      "primary_currency": "BTC",
+      "secondary_currency": "XCN"
+    },
+    {
+      "symbol": "XPMBTC",
+      "pairing_id": 7,
+      "primary_currency": "BTC",
+      "secondary_currency": "XPM"
+    },
+    {
+      "symbol": "XPYBTC",
+      "pairing_id": 17,
+      "primary_currency": "BTC",
+      "secondary_currency": "XPY"
+    },
+    {
+      "symbol": "XRPTHB",
+      "pairing_id": 25,
+      "primary_currency": "THB",
+      "secondary_currency": "XRP"
+    },
+    {
+      "symbol": "XZCTHB",
+      "pairing_id": 29,
+      "primary_currency": "THB",
+      "secondary_currency": "XZC"
+    },
+    {
+      "symbol": "ZECBTC",
+      "pairing_id": 8,
+      "primary_currency": "BTC",
+      "secondary_currency": "ZEC"
+    }
+]

@@ -1,9 +1,4 @@
-//https://api.coinmarketcap.com/v1/ticker/
-//https://stackoverflow.com/questions/14208707/parsing-json-in-nodejs
-
-let request = require("request")
 let rp = require('request-promise');
-
 let getJsonStr = urlStr => {
     let url = urlStr
 
@@ -22,5 +17,5 @@ let getJsonStr = urlStr => {
     //console.log('url : ',url);
     
 }
-module.exports = getJsonStr;
-//getCoinMarketCapTicker("https://api.coinmarketcap.com/v1/ticker/");
+
+module.exports = getJsonStr
