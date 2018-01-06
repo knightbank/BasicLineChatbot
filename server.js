@@ -1,11 +1,8 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
-const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
+const getJsonStr = require("./getJsonStr");
 const jsonfile = require('jsonfile');
-const Sync = require('sync')
-const getJsonStr = require('./getJsonStr')
 let JsonObj;
-
 
 require('dotenv').config();
 
@@ -78,7 +75,6 @@ let handleMessageEvent = event => {
       
       switch(splitStr[0]){
         case "price" || "ราคา" :
-
         currencyList = jsonfile.readFileSync("./currencyList.json")
         getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[String(splitStr[1]).toUpperCase()]+"?convert=THB")
           .then((result) => {
@@ -118,6 +114,53 @@ Percent Change
       console.log(err);
     });
 }
+
+let getStringMessage = clientText => {
+  let msg;
+  switch(clientText){
+    case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
+      msg = [{
+        type: 'text',
+        text: 'สวัสดีครัช '+ userProfile.displayName
+      },
+      {
+        type: 'sticker',
+        packageId: "1",
+        stickerId: "12"
+      }]
+    break;
+    
+    case "btc" || "bitcoin" :
+    getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
+    .then((result) => {
+        JsonObj = result;
+        // console.log('Json Object = ',JsonObj);
+        // console.log(JsonObj[0]["id"]);
+        // JsonObj.forEach(element => {
+        //     console.log(element["name"]);
+        // });
+        return msg = {
+          type: 'text',
+          text: JsonObj[0]["percent_change_7d"]
+        }
+    })
+    .catch(error => {
+        // Handle errors of asyncFunc1() and asyncFunc2()
+        msg = {
+          type: 'text',
+          text: error
+        }
+    });
+    break;
+
+    default : msg = {
+      type: 'text',
+      text: new Date()
+    }
+  }
+  return msg;
+}
+
 
 app.set('port', (process.env.PORT || 5000));
 
