@@ -31,5 +31,5 @@ getCoinMarketCapInfo = (symbol) => {
 })
 
 
-//module.exports = getCoinMarketCapInfo;
-getCoinMarketCapInfo("btc");
+module.exports = getCoinMarketCapInfo;
+//getCoinMarketCapInfo("btc");

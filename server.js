@@ -2,7 +2,9 @@ const express = require('express');
 const line = require('@line/bot-sdk');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const jsonfile = require('jsonfile');
+const Sync = require('sync')
 let JsonObj;
+
 
 require('dotenv').config();
 
