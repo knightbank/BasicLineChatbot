@@ -31,9 +31,5 @@ getCoinMarketCapInfo = (symbol) => {
 })
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> testSeperateModule
 module.exports = getCoinMarketCapInfo;
 //getCoinMarketCapInfo("btc");
