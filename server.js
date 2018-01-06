@@ -1,6 +1,6 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
-const getJsonStr = require("./processApi");
+const getJsonStr = require("./processCoinMarketCapApi");
 const jsonfile = require('jsonfile');
 let JsonObj;
 
