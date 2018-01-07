@@ -1,9 +1,9 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
-const getJsonStr = require("./getJsonStr");
 const jsonfile = require('jsonfile');
-let JsonObj;
-
+const Sync = require('sync');
+const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
+const getBxInfo = require("./processbxApi");
 require('dotenv').config();
 
 const app = express();
@@ -42,6 +42,16 @@ function handleEvent(event) {
     }
 }
 
+// let handleJoinEvent = event => {
+//   let msg
+//   return client.replyMessage(event.replyToken, msg).then(() => {
+      
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+// }
+
 let handleMessageEvent = event => {
     let msg
     client.getProfile(event.source.userId).then((profile) => {
@@ -72,27 +82,69 @@ let handleMessageEvent = event => {
       
       switch(splitStr[0]){
         case "price" || "ราคา" :
-        let coinId = splitStr[1].toUpperCase();
-        currencyList = jsonfile.readFileSync("./currencyList.json")
-        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[coinId]).replace(" ","-").toLowerCase()+"?convert=THB")
-          .then((result) => {
-            JsonObj = result;
-            msg = {
-              type: 'text',
-              text: `${String(splitStr[1]).toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
-Percent Change
-  1 Hr. ${JsonObj[0]["percent_change_1h"]}%
-  24 Hr. ${JsonObj[0]["percent_change_24h"]}%
-  7 Days. ${JsonObj[0]["percent_change_7d"]}%`
-            }
+        let symbol = splitStr[1].toUpperCase()
 
+        getCoinMarketCapInfo(symbol)
+        .then((cmcInfo) => {
+          getBxInfo(symbol)
+          .then((bxInfo) => {
+            let calcDiff
+            let calDiffPct
+            let displayCalcDiff
+            let displayCalDiffPct
+            let usdRateBX
+            if (bxInfo != undefined){
+              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
+              calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+              displayCalcDiff
+              displayCalDiffPct
+              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
+
+              if(calcDiff>=0){
+                displayCalcDiff = "+" + calcDiff.toLocaleString('en');
+                displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+              }
+              else{
+                displayCalcDiff = calcDiff.toLocaleString('en');
+                displayCalDiffPct = calDiffPct.toLocaleString('en');
+              }
+              msg = {
+                type: 'text',
+                text: 
+  `${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
+            }// if have bx info
+            else{
+              usdRateBX = Number(cmcInfo[0]["price_thb"])/Number(cmcInfo[0]["price_usd"])
+              msg = {
+                type: 'text',
+                text: 
+`${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = N/A 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
+            }
+            
             return client.replyMessage(event.replyToken, msg).then(() => {
         
             })
             .catch((err) => {
               console.log(err);
             });
+          })
         })
         .catch(error => {
             // Handle errors of asyncFunc1() and asyncFunc2()
@@ -100,6 +152,12 @@ Percent Change
               type: 'text',
               text: error
             }
+            return client.replyMessage(event.replyToken, msg).then(() => {
+        
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
         break;
       }
@@ -112,53 +170,6 @@ Percent Change
       console.log(err);
     });
 }
-
-let getStringMessage = clientText => {
-  let msg;
-  switch(clientText){
-    case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
-      msg = [{
-        type: 'text',
-        text: 'สวัสดีครัช '+ userProfile.displayName
-      },
-      {
-        type: 'sticker',
-        packageId: "1",
-        stickerId: "12"
-      }]
-    break;
-    
-    case "btc" || "bitcoin" :
-    getJsonStr("https://api.coinmarketcap.com/v1/ticker/BitCoin")
-    .then((result) => {
-        JsonObj = result;
-        // console.log('Json Object = ',JsonObj);
-        // console.log(JsonObj[0]["id"]);
-        // JsonObj.forEach(element => {
-        //     console.log(element["name"]);
-        // });
-        return msg = {
-          type: 'text',
-          text: JsonObj[0]["percent_change_7d"]
-        }
-    })
-    .catch(error => {
-        // Handle errors of asyncFunc1() and asyncFunc2()
-        msg = {
-          type: 'text',
-          text: error
-        }
-    });
-    break;
-
-    default : msg = {
-      type: 'text',
-      text: new Date()
-    }
-  }
-  return msg;
-}
-
 
 app.set('port', (process.env.PORT || 5000));
 

@@ -30,7 +30,7 @@
       "secondary_currency": "ETH"
     },
     {
-      "stymbol": "BCHTHB",
+      "symbol": "BCHTHB",
       "pairing_id": 27,
       "primary_currency": "THB",
       "secondary_currency": "BCH"
@@ -102,7 +102,7 @@
       "secondary_currency": "PPC"
     },
     {
-      "symvol": "QRKBTC",
+      "symbol": "QRKBTC",
       "pairing_id": 19,
       "primary_currency": "BTC",
       "secondary_currency": "QRK"
