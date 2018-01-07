@@ -66,6 +66,12 @@ let handleMessageEvent = event => {
             packageId: "1",
             stickerId: "12"
           }]
+          return client.replyMessage(event.replyToken, msg).then(() => {
+      
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         });
           
         break;
@@ -73,9 +79,9 @@ let handleMessageEvent = event => {
       }//end switch
     }
     else{
-      
       switch(splitStr[0]){
-        case "price" || "ราคา" :
+        case "price" :
+        case "ราคา" :
         let symbol = splitStr[1].toUpperCase()
 
         getCoinMarketCapInfo(symbol)
