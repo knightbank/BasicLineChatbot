@@ -6,20 +6,18 @@ let getJsonStr = require("./getJsonStr")
 require('bluebird');
 const jsonfile = require('jsonfile');
 
-let paringID = -1
+let paringID
 
 getBxInfo = (symbol) => {
 
     return new Promise(function (resolve, reject) {
 
         currencyList = jsonfile.readFileSync("./bxCurrency.json")
+        paringID = -1
         currencyList.forEach(currency=> {
             if(currency["symbol"] == symbol.toUpperCase()+"THB"){
                 paringID = currency["pairing_id"]
             }
-            // else{
-            //     paringID = -1
-            // }
         })
         getJsonStr("https://bx.in.th/api/")
         .then((result) => {
