@@ -44,11 +44,7 @@ function handleEvent(event) {
 
 
 let handleMessageEvent = event => {
-    let msg
-    //let userProfile
-    client.getProfile(event.source.userId).then((profile) => {
-      userProfile = profile
-    });
+    let msg    
     let clientText = event.message.text.toLowerCase()
     let splitStr = clientText.split(" ");
     let currencyList
@@ -60,15 +56,18 @@ let handleMessageEvent = event => {
         case "hello" : 
         case "สวัสดี" : 
         case "หวัดดี" :
+        client.getProfile(event.source.userId).then((profile) => {
           msg = [{
             type: 'text',
-            text: 'สวัสดีครัช '+ userProfile.displayName
+            text: 'สวัสดีครัช '+ profile.displayName
           },
           {
             type: 'sticker',
             packageId: "1",
             stickerId: "12"
           }]
+        });
+          
         break;
         default : 
       }//end switch
