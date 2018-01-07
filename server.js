@@ -95,6 +95,7 @@ let handleMessageEvent = event => {
             let calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
             let displayCalcDiff
             let displayCalDiffPct
+            let usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
 
             if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
@@ -105,7 +106,9 @@ let handleMessageEvent = event => {
               text: 
 `${symbol} (Rank:${cmcInfo[0]["rank"]})
 Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
-Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} diff: ${displayCalcDiff} (${displayCalDiffPct}%)
+Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
 Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
   24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
