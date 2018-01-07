@@ -115,7 +115,7 @@ Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')}
   Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
 Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
-  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["last_price"]}%)
   7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
             }
 
