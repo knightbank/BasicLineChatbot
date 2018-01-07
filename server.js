@@ -1,11 +1,9 @@
 const express = require('express');
 const line = require('@line/bot-sdk');
-const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const jsonfile = require('jsonfile');
-const Sync = require('sync')
-let JsonObj;
-
-
+const Sync = require('sync');
+const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
+const getBxInfo = require("./processbxApi");
 require('dotenv').config();
 
 const app = express();
@@ -87,12 +85,23 @@ let handleMessageEvent = event => {
       
       switch(splitStr[0]){
         case "price" || "ราคา" :
-
+        
         getCoinMarketCapInfo(String(splitStr[1]).toUpperCase())
-          .then((result) => {
+        .then((cmcInfo) => {
+          getBxInfo(String(splitStr[1]).toUpperCase())
+          .then((bxInfo) => {
+            let calcDiff = Number(cmcInfo[0]["price_thb"]) - Number(bxInfo[0]["last_price"])
+            let calDiffPct = calcDiff*100/Number(cmcInfo[0]["price_thb"])
             msg = {
               type: 'text',
-              text: result
+              text: 
+`${symbol.toUpperCase()} (Rank:${cmcInfo[0]["rank"]})
+Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price on bx.in.th = ฿${Number(bxInfo[0]["last_price"]).toLocaleString('en')} diff:${calcDiff} (${calDiffPct}%)
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
             }
 
             return client.replyMessage(event.replyToken, msg).then(() => {
@@ -101,6 +110,7 @@ let handleMessageEvent = event => {
             .catch((err) => {
               console.log(err);
             });
+          })
         })
         .catch(error => {
             // Handle errors of asyncFunc1() and asyncFunc2()

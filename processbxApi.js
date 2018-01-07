@@ -3,20 +3,25 @@
 //"https://bx.in.th/api/"
 let request = require("request")
 let getJsonStr = require("./getJsonStr")
-let text
-
 require('bluebird');
 const jsonfile = require('jsonfile');
 
-getCoinMarketCapInfo = (symbol) => {
+let paringID
+
+getBxInfo = (symbol) => {
 
     return new Promise(function (resolve, reject) {
 
-        currencyList = jsonfile.readFileSync("./currencyList.json")
-                getJsonStr("https://bx.in.th/api/")
-                .then((result) => {
-                    JsonObj = result;
-        
+        currencyList = jsonfile.readFileSync("./bxCurrency.json")
+        currencyList.forEach(currency=> {
+            if(currency["symbol"] == symbol.toUpperCase()+"THB"){
+                paringID = currency["pairing_id"]
+            }
+        })
+        getJsonStr("https://bx.in.th/api/")
+        .then((result) => {
+            JsonObj = result;
+
         //             text= `${symbol.toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
         // Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
         // Percent Change
@@ -31,4 +36,6 @@ getCoinMarketCapInfo = (symbol) => {
 
 
 //module.exports = getCoinMarketCapInfo;
-getCoinMarketCapInfo("btc").then((text) => { console.log(text);})
+getBxInfo("btc").then((text) => { 
+    console.log(text['1']);
+})
