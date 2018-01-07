@@ -54,6 +54,7 @@ function handleEvent(event) {
 
 let handleMessageEvent = event => {
     let msg
+    let userProfile = undefined
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
