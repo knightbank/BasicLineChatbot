@@ -152,6 +152,12 @@ Percent Change
               type: 'text',
               text: error
             }
+            return client.replyMessage(event.replyToken, msg).then(() => {
+        
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
         break;
       }
