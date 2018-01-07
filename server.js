@@ -42,19 +42,10 @@ function handleEvent(event) {
     }
 }
 
-// let handleJoinEvent = event => {
-//   let msg
-//   return client.replyMessage(event.replyToken, msg).then(() => {
-      
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-// }
-let userProfile
+
 let handleMessageEvent = event => {
     let msg
-    userProfile = undefined
+    //let userProfile
     client.getProfile(event.source.userId).then((profile) => {
       userProfile = profile
     });
