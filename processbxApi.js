@@ -6,7 +6,7 @@ let getJsonStr = require("./getJsonStr")
 require('bluebird');
 const jsonfile = require('jsonfile');
 
-let paringID
+let paringID = -1
 
 getBxInfo = (symbol) => {
 
