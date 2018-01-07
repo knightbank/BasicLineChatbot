@@ -19,35 +19,72 @@ let splitStr = String("Price XMR").split(" ");
 let msg
 
 console.log(String(splitStr[1]).toUpperCase());
+let calcDiff
+let calDiffPct
+let displayCalcDiff
+let displayCalDiffPct
+let usdRateBX
 let symbol = splitStr[1].toUpperCase()
+
 getCoinMarketCapInfo(symbol)
         .then((cmcInfo) => {
-            console.log("1");
           getBxInfo(symbol)
           .then((bxInfo) => {
-              console.log("2");
-            let calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
-            let calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
-            let displayCalcDiff
-            let displayCalDiffPct
+            console.log(bxInfo);
+            if (bxInfo != undefined){
+              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
+              calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+              displayCalcDiff
+              displayCalDiffPct
+              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
 
-            if(calcDiff>=0){
+              if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
                 displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
-            }
-
-            msg =  
+              }
+              else{
+                displayCalcDiff = calcDiff.toLocaleString('en');
+                displayCalDiffPct = calDiffPct.toLocaleString('en');
+              }
+              msg = {
+                type: 'text',
+                text: 
+  `${symbol} (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
+            }// if have bx info
+            else{
+              console.log("cannot get bx Info");
+              usdRateBX = Number(cmcInfo[0]["price_thb"])/Number(cmcInfo[0]["price_usd"])
+              msg = {
+                type: 'text',
+                text: 
 `${symbol} (Rank:${cmcInfo[0]["rank"]})
-Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
-Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} diff: ${displayCalcDiff} (${displayCalDiffPct}%)
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = N/A 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
 Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
   24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
   7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
+            }
             
-            console.log(msg);
+            return client.replyMessage(event.replyToken, msg).then(() => {
+        
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           })
+          .catch((err) => {
+            
+          });
         })
-        .catch(error => {
-            // Handle errors of asyncFunc1() and asyncFunc2()
-        });

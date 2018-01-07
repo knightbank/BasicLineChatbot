@@ -21,7 +21,6 @@ getBxInfo = (symbol) => {
             //     paringID = -1
             // }
         })
-        console.log(paringID);
         getJsonStr("https://bx.in.th/api/")
         .then((result) => {
             JsonObj = result[String(paringID)];
@@ -36,7 +35,11 @@ getBxInfo = (symbol) => {
     }
 
 
-//module.exports = getBxInfo;
-getBxInfo("xmr").then((text) => { 
-    console.log(text);
-})
+module.exports = getBxInfo;
+// getBxInfo("xmr").then((text) => { 
+//     console.log(text);
+// })
+// .catch(error => {
+//     // Handle errors of asyncFunc1() and asyncFunc2()
+//     console.log(error);
+// });
