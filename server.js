@@ -72,8 +72,9 @@ let handleMessageEvent = event => {
       
       switch(splitStr[0]){
         case "price" || "ราคา" :
+        let coinId = splitStr[1].toUpperCase();
         currencyList = jsonfile.readFileSync("./currencyList.json")
-        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[splitStr[1]]).replace(" ","-").toLowerCase()+"?convert=THB")
+        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[coinId]).replace(" ","-").toLowerCase()+"?convert=THB")
           .then((result) => {
             JsonObj = result;
             msg = {

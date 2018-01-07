@@ -12,10 +12,15 @@ let currencyList
 //symbol = splitStr[1].replace(" ","-").toLowerCase();
         console.log(symbol);
         currencyList = jsonfile.readFileSync("./currencyList.json")
-        console.log(currencyList);
-        console.log("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[splitStr[1]]).replace(" ","-").toLowerCase()+"?convert=THB");
-        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[splitStr[1]]).replace(" ","-").toLowerCase()+"?convert=THB")
+        let coinId = splitStr[1].toUpperCase();
+        //console.log(currencyList);
+        console.log("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[coinId]).replace(" ","-").toLowerCase()+"?convert=THB");
+        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[coinId]).replace(" ","-").toLowerCase()+"?convert=THB")
           .then((result) => {
             JsonObj = result;
-console.log(JsonObj);
+console.log(String(currencyList[coinId]).replace(" ","-").toLowerCase());
+console.log(String(currencyList[coinId]));
         })
+        .catch((err) => {
+            //console.log(err);
+          });
