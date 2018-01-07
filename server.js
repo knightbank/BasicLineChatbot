@@ -44,7 +44,11 @@ function handleEvent(event) {
 
 
 let handleMessageEvent = event => {
-    let msg    
+    let msg
+    //let userProfile
+    client.getProfile(event.source.userId).then((profile) => {
+      userProfile = profile
+    });
     let clientText = event.message.text.toLowerCase()
     let splitStr = clientText.split(" ");
     let currencyList
@@ -56,29 +60,32 @@ let handleMessageEvent = event => {
         case "hello" : 
         case "สวัสดี" : 
         case "หวัดดี" :
-        client.getProfile(event.source.userId).then((profile) => {
           msg = [{
             type: 'text',
-            text: 'สวัสดีครัช '+ profile.displayName
+            text: 'สวัสดีครัช'
           },
           {
             type: 'sticker',
             packageId: "1",
             stickerId: "12"
           }]
-          return client.replyMessage(event.replyToken, msg).then(() => {
-      
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        });
-          
+        break;
+        case "help" :
+          msg = {
+            type: 'text',
+            text: 
+`คำสั่งสำหรับเรียกดูข้อมูล ราคา Coin/Token
+จะอยู่ในรูปแบบ "price{space}symbol"
+ex. "price btc" หรือ "price evx" (ไม่รวม double quote)
+หาก Coin/Token นั้นมีข้อมูลอยู่บน bx.in.th จะนำข้อมูลล่าสุดมาแสดงด้วย
+ปล.symbol จะอ้างอิงกับ CoinMktCap`
+          }
         break;
         default : 
       }//end switch
     }
     else{
+      
       switch(splitStr[0]){
         case "price" :
         case "ราคา" :
