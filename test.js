@@ -1,18 +1,21 @@
 "use strict";
-const getJsonStr = require("./processApi");
+//const getJsonStr = require("./processCoinMarketCapApi");
 const jsonfile = require('jsonfile');
 const jsonQuery = require('json-query')
-//let jsonPhraser = require("./jsonPhraser");
+const getJsonStr = require("./getJsonStr");
 
 let JsonBXObj;
-getJsonStr("https://bx.in.th/api/")
-.then((result) => {
-    let bxCurrencyList = jsonfile.readFileSync("./bxCurrency.json")
-    JsonBXObj = result;
-    //console.log(JsonBXObj["30"]);
-    console.log(bxCurrencyList);
-})
-.catch(error => {
-    // Handle errors of asyncFunc1() and asyncFunc2()
-    console.log(error);
-});
+
+let splitStr = String("price bch").split(" ");
+let symbol = "";
+let currencyList
+//symbol = splitStr[1].replace(" ","-").toLowerCase();
+        console.log(symbol);
+        currencyList = jsonfile.readFileSync("./currencyList.json")
+        console.log(currencyList);
+        console.log("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[splitStr[1]]).replace(" ","-").toLowerCase()+"?convert=THB");
+        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[splitStr[1]]).replace(" ","-").toLowerCase()+"?convert=THB")
+          .then((result) => {
+            JsonObj = result;
+console.log(JsonObj);
+        })
