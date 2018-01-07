@@ -44,6 +44,16 @@ function handleEvent(event) {
     }
 }
 
+// let handleJoinEvent = event => {
+//   let msg
+//   return client.replyMessage(event.replyToken, msg).then(() => {
+      
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+// }
+
 let handleMessageEvent = event => {
     let msg
     client.getProfile(event.source.userId).then((profile) => {

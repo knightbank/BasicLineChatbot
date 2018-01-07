@@ -13,9 +13,9 @@ let text
 getCoinMarketCapInfo = (symbol) => {
 
     return new Promise(function (resolve, reject) {
-
         currencyList = jsonfile.readFileSync("./currencyList.json")
-                getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+currencyList[symbol.toUpperCase()]+"?convert=THB")
+        let coinId = symbol.toUpperCase();
+        getJsonStr("https://api.coinmarketcap.com/v1/ticker/"+String(currencyList[coinId]).replace(" ","-").toLowerCase()+"?convert=THB")
                 .then((result) => {
                     JsonObj = result;
         
