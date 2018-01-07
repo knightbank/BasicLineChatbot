@@ -56,7 +56,10 @@ let handleMessageEvent = event => {
     
     if(splitStr.length<=1){
       switch(clientText){
-        case "hi"||"hello"||'สวัสดี'||'หวัดดี' :
+        case "hi" :
+        case "hello" : 
+        case "สวัสดี" : 
+        case "หวัดดี" :
           msg = [{
             type: 'text',
             text: 'สวัสดีครัช '+ userProfile.displayName
