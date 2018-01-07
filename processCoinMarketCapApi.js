@@ -20,11 +20,11 @@ getCoinMarketCapInfo = (symbol) => {
                     JsonObj = result;
         
                     text= `${symbol.toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
-        Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
-        Percent Change
-          1 Hr. ${JsonObj[0]["percent_change_1h"]}%
-          24 Hr. ${JsonObj[0]["percent_change_24h"]}%
-          7 Days. ${JsonObj[0]["percent_change_7d"]}%`;
+Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
+Percent Change
+1 Hr. ${JsonObj[0]["percent_change_1h"]}%
+24 Hr. ${JsonObj[0]["percent_change_24h"]}%
+7 Days. ${JsonObj[0]["percent_change_7d"]}%`;
           //if (err) return reject(err) // rejects the promise with `err` as the reason
           resolve(text)               // fulfills the promise with `data` as the value
                 })
