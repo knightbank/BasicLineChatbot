@@ -85,19 +85,27 @@ let handleMessageEvent = event => {
       
       switch(splitStr[0]){
         case "price" || "ราคา" :
-        
-        getCoinMarketCapInfo(String(splitStr[1]).toUpperCase())
+        let symbol = splitStr[1].toUpperCase()
+
+        getCoinMarketCapInfo(symbol)
         .then((cmcInfo) => {
-          getBxInfo(String(splitStr[1]).toUpperCase())
+          getBxInfo(symbol)
           .then((bxInfo) => {
-            let calcDiff = Number(cmcInfo[0]["price_thb"]) - Number(bxInfo["last_price"])
-            let calDiffPct = calcDiff*100/Number(cmcInfo[0]["price_thb"])
+            let calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
+            let calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+            let displayCalcDiff
+            let displayCalDiffPct
+
+            if(calcDiff>=0){
+                displayCalcDiff = "+" + calcDiff.toLocaleString('en');
+                displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+            }
             msg = {
               type: 'text',
               text: 
-`${symbol.toUpperCase()} (Rank:${cmcInfo[0]["rank"]})
+`${symbol} (Rank:${cmcInfo[0]["rank"]})
 Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
-Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} diff:${calcDiff} (${calDiffPct}%)
+Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} diff: ${displayCalcDiff} (${displayCalDiffPct}%)
 Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
   24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
