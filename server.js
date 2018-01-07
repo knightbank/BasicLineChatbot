@@ -98,8 +98,12 @@ let handleMessageEvent = event => {
             let usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
 
             if(calcDiff>=0){
-                displayCalcDiff = "+" + calcDiff.toLocaleString('en');
-                displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+              displayCalcDiff = "+" + calcDiff.toLocaleString('en');
+              displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+            }
+            else{
+              displayCalcDiff = calcDiff.toLocaleString('en');
+              displayCalDiffPct = calDiffPct.toLocaleString('en');
             }
             msg = {
               type: 'text',
