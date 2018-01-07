@@ -111,7 +111,7 @@ let handleMessageEvent = event => {
               msg = {
                 type: 'text',
                 text: 
-  `${symbol} (Rank:${cmcInfo[0]["rank"]})
+  `${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
 Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
@@ -127,7 +127,7 @@ Percent Change
               msg = {
                 type: 'text',
                 text: 
-  `${symbol} (Rank:${cmcInfo[0]["rank"]})
+`${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
 Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
 Price(BX) = N/A 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
