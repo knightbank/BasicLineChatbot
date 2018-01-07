@@ -76,8 +76,11 @@ let handleMessageEvent = event => {
             text: 
 `คำสั่งสำหรับเรียกดูข้อมูล ราคา Coin/Token
 จะอยู่ในรูปแบบ "price{space}symbol"
-ex. "price btc" หรือ "price evx" (ไม่รวม double quote)
-หาก Coin/Token นั้นมีข้อมูลอยู่บน bx.in.th จะนำข้อมูลล่าสุดมาแสดงด้วย
+ex. "price btc" 
+หรือ "price evx" 
+(ไม่รวม double quote)
+หาก Coin/Token นั้นมีข้อมูลอยู่บน bx.in.th 
+จะนำข้อมูลล่าสุดมาแสดงด้วย
 ปล.symbol จะอ้างอิงกับ CoinMktCap`
           }
         break;
