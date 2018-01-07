@@ -98,5 +98,6 @@
         "GXS" : "GXShares",
         "RDN" : "Raiden Network Token",
         "QSP" : "Quantstamp",
-        "STORJ" : "Storj"
+        "STORJ" : "Storj",
+        "EVX" : "Everex"
     }
