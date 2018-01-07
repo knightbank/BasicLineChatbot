@@ -90,14 +90,14 @@ let handleMessageEvent = event => {
         .then((cmcInfo) => {
           getBxInfo(String(splitStr[1]).toUpperCase())
           .then((bxInfo) => {
-            let calcDiff = Number(cmcInfo[0]["price_thb"]) - Number(bxInfo[0]["last_price"])
+            let calcDiff = Number(cmcInfo[0]["price_thb"]) - Number(bxInfo["last_price"])
             let calDiffPct = calcDiff*100/Number(cmcInfo[0]["price_thb"])
             msg = {
               type: 'text',
               text: 
 `${symbol.toUpperCase()} (Rank:${cmcInfo[0]["rank"]})
 Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
-Price on bx.in.th = ฿${Number(bxInfo[0]["last_price"]).toLocaleString('en')} diff:${calcDiff} (${calDiffPct}%)
+Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} diff:${calcDiff} (${calDiffPct}%)
 Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
   24 Hr. ${cmcInfo[0]["percent_change_24h"]}%

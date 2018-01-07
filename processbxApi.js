@@ -20,7 +20,7 @@ getBxInfo = (symbol) => {
         })
         getJsonStr("https://bx.in.th/api/")
         .then((result) => {
-            JsonObj = result;
+            JsonObj = result[String(paringID)];
 
         //             text= `${symbol.toUpperCase()} on CoinmarketCap (Rank:${JsonObj[0]["rank"]})
         // Price = $${Number(JsonObj[0]["price_usd"]).toLocaleString('en') } (฿${Number(JsonObj[0]["price_thb"]).toLocaleString('en')})
@@ -35,7 +35,7 @@ getBxInfo = (symbol) => {
     }
 
 
-//module.exports = getCoinMarketCapInfo;
-getBxInfo("btc").then((text) => { 
-    console.log(text['1']);
-})
+module.exports = getBxInfo;
+// getBxInfo("btc").then((text) => { 
+//     console.log(text["last_price"]);
+// })
