@@ -75,10 +75,7 @@ let handleMessageEvent = event => {
             stickerId: "12"
           }]
         break;
-        default : msg = {
-          type: 'text',
-          text: new Date()
-        }
+        default : 
       }//end switch
     }
     else{
