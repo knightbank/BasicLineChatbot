@@ -15,7 +15,7 @@ let JsonBXObj;
 //     // Handle errors of asyncFunc1() and asyncFunc2()
 //     console.log(error);
 // });
-let splitStr = String("Price BTC").split(" ");
+let splitStr = String("Price XMR").split(" ");
 let msg
 
 console.log(String(splitStr[1]).toUpperCase());

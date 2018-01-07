@@ -91,24 +91,30 @@ let handleMessageEvent = event => {
         .then((cmcInfo) => {
           getBxInfo(symbol)
           .then((bxInfo) => {
-            let calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
-            let calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+            let calcDiff
+            let calDiffPct
             let displayCalcDiff
             let displayCalDiffPct
-            let usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
+            let usdRateBX
+            if (bxInfo != undefined){
+              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
+              calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+              displayCalcDiff
+              displayCalDiffPct
+              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
 
-            if(calcDiff>=0){
-              displayCalcDiff = "+" + calcDiff.toLocaleString('en');
-              displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
-            }
-            else{
-              displayCalcDiff = calcDiff.toLocaleString('en');
-              displayCalDiffPct = calDiffPct.toLocaleString('en');
-            }
-            msg = {
-              type: 'text',
-              text: 
-`${symbol} (Rank:${cmcInfo[0]["rank"]})
+              if(calcDiff>=0){
+                displayCalcDiff = "+" + calcDiff.toLocaleString('en');
+                displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+              }
+              else{
+                displayCalcDiff = calcDiff.toLocaleString('en');
+                displayCalDiffPct = calDiffPct.toLocaleString('en');
+              }
+              msg = {
+                type: 'text',
+                text: 
+  `${symbol} (Rank:${cmcInfo[0]["rank"]})
 Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
@@ -117,8 +123,24 @@ Percent Change
   1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
   24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
   7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
+            }// if have bx info
+            else{
+              usdRateBX = Number(cmcInfo[0]["price_thb"])/Number(cmcInfo[0]["price_usd"])
+              msg = {
+                type: 'text',
+                text: 
+  `${symbol} (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = N/A 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+              }
             }
-
+            
             return client.replyMessage(event.replyToken, msg).then(() => {
         
             })
