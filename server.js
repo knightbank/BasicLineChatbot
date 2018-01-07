@@ -109,8 +109,8 @@ let handleMessageEvent = event => {
               type: 'text',
               text: 
 `${symbol} (Rank:${cmcInfo[0]["rank"]})
-Price on CoinMktCap = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
-Price on bx.in.th = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
   Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
 Percent Change
