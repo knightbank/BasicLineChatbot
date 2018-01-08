@@ -18,8 +18,8 @@ getCryptoCompareInfo = (symbol) => {
             })
       })          
     }
-//module.exports = getCryptoCompareInfo;
- getCryptoCompareInfo("btc")
- .then((text) => {
-     console.log(text["BTC"]["USD"]);
-    })
+module.exports = getCryptoCompareInfo;
+//  getCryptoCompareInfo("btc")
+//  .then((text) => {
+//      console.log(text["BTC"]["USD"]);
+//     })
