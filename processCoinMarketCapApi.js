@@ -3,7 +3,6 @@
 
 let request = require("request")
 let getJsonStr = require("./getJsonStr")
-let Sync = require('sync')
 
 require('bluebird');
 const jsonfile = require('jsonfile');

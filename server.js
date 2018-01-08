@@ -4,6 +4,7 @@ const jsonfile = require('jsonfile');
 const Sync = require('sync');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const getBxInfo = require("./processbxApi");
+const getCryptoCompareInfo = require("./processCryptoCompareApi");
 require('dotenv').config();
 
 const app = express();
@@ -52,6 +53,7 @@ let handleMessageEvent = event => {
     let clientText = event.message.text.toLowerCase()
     let splitStr = clientText.split(" ");
     let currencyList
+    let symbol
     //msg = getStringMessage(clientText);
     
     if(splitStr.length<=1){
@@ -75,13 +77,14 @@ let handleMessageEvent = event => {
             type: 'text',
             text: 
 `คำสั่งสำหรับเรียกดูข้อมูล ราคา Coin/Token
-จะอยู่ในรูปแบบ "price{space}symbol"
-ex. "price btc" 
-หรือ "price evx" 
+จะอยู่ในรูปแบบ "price@{Source}{space}symbol"
+Source cmc = CoinMarketCap
+ccp = CryptoCompare
+ex. "price@ccp btc" 
+หรือ "price@cmc evx" 
 (ไม่รวม double quote)
 หาก Coin/Token นั้นมีข้อมูลอยู่บน bx.in.th 
-จะนำข้อมูลล่าสุดมาแสดงด้วย
-ปล.symbol จะอ้างอิงกับ CoinMktCap`
+จะนำข้อมูลล่าสุดมาแสดงด้วย`
           }
         break;
         default : 
@@ -90,9 +93,8 @@ ex. "price btc"
     else{
       
       switch(splitStr[0]){
-        case "price" :
-        case "ราคา" :
-        let symbol = splitStr[1].toUpperCase()
+        case "price@cmc" :
+        symbol = splitStr[1].toUpperCase()
 
         getCoinMarketCapInfo(symbol)
         .then((cmcInfo) => {
@@ -147,6 +149,79 @@ Percent Change
   7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
               }
             }
+            
+            return client.replyMessage(event.replyToken, msg).then(() => {
+        
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          })
+        })
+        .catch(error => {
+            // Handle errors of asyncFunc1() and asyncFunc2()
+            msg = {
+              type: 'text',
+              text: error
+            }
+            return client.replyMessage(event.replyToken, msg).then(() => {
+        
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
+        break;
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+        case "price@ccp" :
+        symbol = splitStr[1].toUpperCase()
+
+        getCryptoCompareInfo(symbol)
+        .then((ccpInfo) => {
+          getBxInfo(symbol)
+          .then((bxInfo) => {
+            let calcDiff
+            let calDiffPct
+            let displayCalcDiff
+            let displayCalDiffPct
+            let usdRateBX
+            if (bxInfo != undefined){
+              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[symbol]["THB"]) 
+              calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
+              displayCalcDiff
+              displayCalDiffPct
+              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[symbol]["USD"])
+
+              if(calcDiff>=0){
+                displayCalcDiff = "+" + calcDiff.toLocaleString('en');
+                displayCalDiffPct = "+" + calDiffPct.toLocaleString('en');
+              }
+              else{
+                displayCalcDiff = calcDiff.toLocaleString('en');
+                displayCalDiffPct = calDiffPct.toLocaleString('en');
+              }
+              msg = {
+                type: 'text',
+                text: 
+  `${symbol} 
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
+Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)`
+              }
+            }// if have bx info
+            else{
+              usdRateBX = Number(ccpInfo[symbol]["THB"])/Number(ccpInfo[symbol]["USD"])
+              msg = {
+                type: 'text',
+                text: 
+`${symbol}
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
+Price(BX) = N/A 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}`
+              }
+            }
+            
             
             return client.replyMessage(event.replyToken, msg).then(() => {
         

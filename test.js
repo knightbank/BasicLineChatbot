@@ -3,40 +3,29 @@ const getJsonStr = require("./getJsonStr");
 const jsonfile = require('jsonfile');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const getBxInfo = require("./processbxApi");
+const getCryptoCompareInfo = require("./processCryptoCompareApi");
 let JsonBXObj;
-// getJsonStr("https://bx.in.th/api/")
-// .then((result) => {
-//     let bxCurrencyList = jsonfile.readFileSync("./bxCurrency.json")
-//     JsonBXObj = result;
-//     //console.log(JsonBXObj["30"]);
-//     console.log(bxCurrencyList);
-// })
-// .catch(error => {
-//     // Handle errors of asyncFunc1() and asyncFunc2()
-//     console.log(error);
-// });
-let splitStr = String("Price XMR").split(" ");
-let msg
-
-console.log(String(splitStr[1]).toUpperCase());
-let calcDiff
-let calDiffPct
-let displayCalcDiff
-let displayCalDiffPct
-let usdRateBX
+let msg;
+let splitStr = String("price@ccp BTC").split(" ");
 let symbol = splitStr[1].toUpperCase()
-
-getCoinMarketCapInfo(symbol)
-        .then((cmcInfo) => {
+console.log(symbol);
+getCryptoCompareInfo(symbol)
+        .then((ccpInfo) => {
+          console.log(ccpInfo[symbol]["THB"]);
           getBxInfo(symbol)
           .then((bxInfo) => {
-            console.log(bxInfo);
+            let calcDiff
+            let calDiffPct
+            let displayCalcDiff
+            let displayCalDiffPct
+            let usdRateBX
             if (bxInfo != undefined){
-              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
+              
+              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[symbol]["THB"]) 
               calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
               displayCalcDiff
               displayCalDiffPct
-              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
+              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[symbol]["USD"])
 
               if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
@@ -49,42 +38,28 @@ getCoinMarketCapInfo(symbol)
               msg = {
                 type: 'text',
                 text: 
-  `${symbol} Name:${cmcInfo[0]["name"]} (Rank:${cmcInfo[0]["rank"]})
-Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+  `${symbol} 
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
-  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
-Percent Change
-  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
-  24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
-  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)`
               }
             }// if have bx info
             else{
-              console.log("cannot get bx Info");
-              usdRateBX = Number(cmcInfo[0]["price_thb"])/Number(cmcInfo[0]["price_usd"])
+              usdRateBX = Number(ccpInfo[symbol]["THB"])/Number(ccpInfo[symbol]["USD"])
               msg = {
                 type: 'text',
                 text: 
-`${symbol} (Rank:${cmcInfo[0]["rank"]})
-Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
+`${symbol}
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
 Price(BX) = N/A 
-  USD Rate: ฿${usdRateBX.toLocaleString('en')}
-Percent Change
-  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
-  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
-  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}`
               }
             }
+            
             
             return client.replyMessage(event.replyToken, msg).then(() => {
         
             })
-            .catch((err) => {
-              console.log(err);
-            });
           })
-          .catch((err) => {
-            
-          });
         })
