@@ -100,12 +100,16 @@ ex. "price btc"
         .then((coinInfo) => {
           cmcUsdRate = Number(coinInfo["Currency"][0]["cmcPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
           ccpUsdRate = Number(coinInfo["Currency"][0]["ccpPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
+
           if(coinInfo["Currency"][0]["bxPriceTHB"] != "N/A"){
             bxPriceTHB = Number(coinInfo["Currency"][0]["bxPriceTHB"]).toLocaleString('en')
+
             cmcCalcDiff = Number(coinInfo["Currency"][0]["bxPriceTHB"]) - Number(coinInfo["Currency"][0]["cmcPriceTHB"])
             cmcCalDiffPct = cmcCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
+
             ccpCalcDiff = Number(coinInfo["Currency"][0]["bxPriceTHB"]) - Number(coinInfo["Currency"][0]["ccpPriceTHB"])
             ccpCalcDiffPct = ccpCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
+            
             cmcUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
             ccpUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
 
@@ -139,12 +143,10 @@ ex. "price btc"
 
           textMsg = 
 `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})
-Price(CoinMktCap) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } 
-  (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
+Price(CMC) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
   USD Rate = ฿${cmcUsdRate.toLocaleString('en')}
 
-Price(CryptoCompare) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } 
-  (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
+Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
   USD Rate = ฿${ccpUsdRate.toLocaleString('en')}
 
 Price(bx) = ฿${bxPriceTHB} 
