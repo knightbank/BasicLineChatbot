@@ -4,6 +4,7 @@ const jsonfile = require('jsonfile');
 const Sync = require('sync');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const getBxInfo = require("./processbxApi");
+const getCryptoCompareInfo = require("./processCoinMarketCapApi");
 require('dotenv').config();
 
 const app = express();
@@ -103,11 +104,11 @@ ex. "price btc"
             let displayCalDiffPct
             let usdRateBX
             if (bxInfo != undefined){
-              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["THB"]) 
+              calcDiff = Number(bxInfo["last_price"]) - Number(cmcInfo[0]["price_thb"]) 
               calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
               displayCalcDiff
               displayCalDiffPct
-              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["USD"])
+              usdRateBX = Number(bxInfo["last_price"])/Number(cmcInfo[0]["price_usd"])
 
               if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
@@ -120,22 +121,30 @@ ex. "price btc"
               msg = {
                 type: 'text',
                 text: 
-`${symbol}
-Price(CryptoCompare) = $${Number(cmcInfo[0]["USD"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["THB"]).toLocaleString('en')})
+  `${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
-  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)`
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
               }
             }// if have bx info
             else{
-              usdRateBX = Number(cmcInfo[0]["THB"])/Number(cmcInfo[0]["USD"])
+              usdRateBX = Number(cmcInfo[0]["price_thb"])/Number(cmcInfo[0]["price_usd"])
               msg = {
                 type: 'text',
                 text: 
-`${symbol}
-Price(CryptoCompare) = $${Number(cmcInfo[0]["USD"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["THB"]).toLocaleString('en')})
+`${symbol} (${cmcInfo[0]["name"]}) (Rank:${cmcInfo[0]["rank"]})
+Price(CoinMktCap) = $${Number(cmcInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(cmcInfo[0]["price_thb"]).toLocaleString('en')})
 Price(BX) = N/A 
-  USD Rate: ฿${usdRateBX.toLocaleString('en')}`
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}
+Percent Change
+  1 Hr. ${cmcInfo[0]["percent_change_1h"]}%
+  24 Hr. ${cmcInfo[0]["percent_change_24h"]}%
+  7 Days. ${cmcInfo[0]["percent_change_7d"]}%`
               }
             }
             
@@ -161,7 +170,7 @@ Price(BX) = N/A
             });
         });
         break;
-
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
         case "price@ccp" :
         let symbol = splitStr[1].toUpperCase()
 
@@ -175,11 +184,11 @@ Price(BX) = N/A
             let displayCalDiffPct
             let usdRateBX
             if (bxInfo != undefined){
-              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[0]["price_thb"]) 
+              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[0]["THB"]) 
               calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
               displayCalcDiff
               displayCalDiffPct
-              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[0]["price_usd"])
+              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[0]["USD"])
 
               if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
@@ -192,20 +201,25 @@ Price(BX) = N/A
               msg = {
                 type: 'text',
                 text: 
-  `${symbol} (${ccpInfo[0]["name"]}) (Rank:${ccpInfo[0]["rank"]})
-Price(CoinMktCap) = $${Number(ccpInfo[0]["price_usd"]).toLocaleString('en') } (฿${Number(ccpInfo[0]["price_thb"]).toLocaleString('en')})
+  `${symbol} 
+Price(CryptoCompare) = $${Number(ccpInfo[0]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[0]["THB"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
-  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)
-Percent Change
-  1 Hr. ${ccpInfo[0]["percent_change_1h"]}%
-  24 Hr. ${ccpInfo[0]["percent_change_24h"]}% (bx:${bxInfo["change"]}%)
-  7 Days. ${ccpInfo[0]["percent_change_7d"]}%`
+  Diff: ${displayCalcDiff} (${displayCalDiffPct}%)`
               }
             }// if have bx info
             else{
-              
+              usdRateBX = Number(ccpInfo[0]["THB"])/Number(ccpInfo[0]["USD"])
+              msg = {
+                type: 'text',
+                text: 
+`${symbol}
+Price(CryptoCompare) = $${Number(ccpInfo[0]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[0]["THB"]).toLocaleString('en')})
+Price(BX) = N/A 
+  USD Rate: ฿${usdRateBX.toLocaleString('en')}`
+              }
             }
+            
             
             return client.replyMessage(event.replyToken, msg).then(() => {
         
