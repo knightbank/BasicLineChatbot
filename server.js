@@ -98,16 +98,16 @@ ex. "price btc"
         symbol = splitStr[1].toUpperCase()
         getCoinInfo(symbol)
         .then((coinInfo) => {
+          cmcUsdRate = Number(coinInfo["Currency"][0]["cmcPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
+          ccpUsdRate = Number(coinInfo["Currency"][0]["ccpPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
           if(coinInfo["Currency"][0]["bxPriceTHB"] != "N/A"){
             bxPriceTHB = Number(coinInfo["Currency"][0]["bxPriceTHB"]).toLocaleString('en')
             cmcCalcDiff = Number(coinInfo["Currency"][0]["bxPriceTHB"]) - Number(coinInfo["Currency"][0]["cmcPriceTHB"])
             cmcCalDiffPct = cmcCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
             ccpCalcDiff = Number(coinInfo["Currency"][0]["bxPriceTHB"]) - Number(coinInfo["Currency"][0]["ccpPriceTHB"])
-            ccpCalDiffPct = ccpCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
+            ccpCalcDiffPct = ccpCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
             cmcUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
             ccpUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
-            cmcUsdRate = Number(coinInfo["Currency"][0]["cmcPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
-            ccpUsdRate = Number(coinInfo["Currency"][0]["ccpPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
 
             if(cmcCalcDiff>=0){
               cmcDisplayCalcDiff = "+" + cmcCalcDiff.toLocaleString('en');
@@ -141,10 +141,10 @@ ex. "price btc"
 `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})
 Price(CoinMktCap) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } 
   (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
-  USD Rate = ${cmcUsdRate}
+  USD Rate = ${cmcUsdRate.toLocaleString('en')}
 Price(CryptoCompare) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } 
   (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
-  USD Rate = ${ccpUsdRate}
+  USD Rate = ${ccpUsdRate.toLocaleString('en')}
 Price(bx) = ฿${bxPriceTHB} 
   USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
   Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
