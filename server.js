@@ -141,20 +141,22 @@ ex. "price btc"
 `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})
 Price(CoinMktCap) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } 
   (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
-  USD Rate = ${cmcUsdRate.toLocaleString('en')}
+  USD Rate = ฿${cmcUsdRate.toLocaleString('en')}
+
 Price(CryptoCompare) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } 
   (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
-  USD Rate = ${ccpUsdRate.toLocaleString('en')}
+  USD Rate = ฿${ccpUsdRate.toLocaleString('en')}
+
 Price(bx) = ฿${bxPriceTHB} 
   USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
   Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
   USD Rate(CCP) :฿${ccpUsdRateBX.toLocaleString('en')}
   Diff(CCP): ${ccpDisplayCalcDiff} (${ccpDisplayCalDiffPct}%)
+
 Percent Change
   1 Hr. ${coinInfo["Currency"][0]["cmcPctChange1H"]}%
   24 Hr. ${coinInfo["Currency"][0]["cmcPctChange24H"]}% (bx:${coinInfo["Currency"][0]["bxPctChange"]}%)
   7 Days. ${coinInfo["Currency"][0]["cmcPctChange7D"]}%`
-
           msg = {
             type: 'text',
             text: textMsg
