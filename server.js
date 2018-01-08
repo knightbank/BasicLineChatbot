@@ -132,6 +132,7 @@ ex. "price btc"
             }
 
             textMsg2 = `
+
 Price(bx) = ฿${bxPriceTHB} 
   USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
   Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
@@ -157,7 +158,8 @@ Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('e
   USD Rate = ฿${ccpUsdRate.toLocaleString('en')}`
 
   textMsg3 = `
-  Percent Change
+
+Percent Change
   1 Hr. ${coinInfo["Currency"][0]["cmcPctChange1H"]}%
   24 Hr. ${coinInfo["Currency"][0]["cmcPctChange24H"]}% (bx:${coinInfo["Currency"][0]["bxPctChange"]}%)
   7 Days. ${coinInfo["Currency"][0]["cmcPctChange7D"]}%`
