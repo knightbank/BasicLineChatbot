@@ -66,5 +66,5 @@ return new Promise(function (resolve, reject) {
 module.exports = getCoinInfo;
 // getCoinInfo("XMR")
 // .then((result) => {
-//     console.log(result);
+//     console.log(result["Currency"][0]["bxPriceTHB"]);
 // })
