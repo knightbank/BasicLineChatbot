@@ -4,7 +4,7 @@ const jsonfile = require('jsonfile');
 const Sync = require('sync');
 const getCoinMarketCapInfo = require("./processCoinMarketCapApi");
 const getBxInfo = require("./processbxApi");
-const getCryptoCompareInfo = require("./processCoinMarketCapApi");
+const getCryptoCompareInfo = require("./processCryptoCompareApi");
 require('dotenv').config();
 
 const app = express();
