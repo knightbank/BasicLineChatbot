@@ -94,7 +94,7 @@ ex. "price btc"
         let cmcDisplayCalDiffPct,ccpDisplayCalDiffPct
         let cmcUsdRateBX,ccpUsdRateBX,cmcUsdRate,ccpUsdRate
         let bxPriceTHB,bxPctChange
-        let textMsg
+        let textMsg1,textMsg2,textMsg3
         symbol = splitStr[1].toUpperCase()
         getCoinInfo(symbol)
         .then((coinInfo) => {
@@ -130,6 +130,13 @@ ex. "price btc"
               ccpDisplayCalcDiff = ccpCalcDiff.toLocaleString('en');
               ccpDisplayCalDiffPct = ccpCalcDiffPct.toLocaleString('en');
             }
+
+            textMsg2 = `
+Price(bx) = ฿${bxPriceTHB} 
+  USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
+  Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
+  USD Rate(CCP) :฿${ccpUsdRateBX.toLocaleString('en')}
+  Diff(CCP): ${ccpDisplayCalcDiff} (${ccpDisplayCalDiffPct}%)`
           }
           else{
             bxPriceTHB = coinInfo["Currency"][0]["bxPriceTHB"]
@@ -141,27 +148,22 @@ ex. "price btc"
             ccpUsdRateBX = "N/A"
           }
 
-          textMsg = 
+          textMsg1 = 
 `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})
 Price(CMC) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
   USD Rate = ฿${cmcUsdRate.toLocaleString('en')}
 
 Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
-  USD Rate = ฿${ccpUsdRate.toLocaleString('en')}
+  USD Rate = ฿${ccpUsdRate.toLocaleString('en')}`
 
-Price(bx) = ฿${bxPriceTHB} 
-  USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
-  Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
-  USD Rate(CCP) :฿${ccpUsdRateBX.toLocaleString('en')}
-  Diff(CCP): ${ccpDisplayCalcDiff} (${ccpDisplayCalDiffPct}%)
-
-Percent Change
+  textMsg3 = `
+  Percent Change
   1 Hr. ${coinInfo["Currency"][0]["cmcPctChange1H"]}%
   24 Hr. ${coinInfo["Currency"][0]["cmcPctChange24H"]}% (bx:${coinInfo["Currency"][0]["bxPctChange"]}%)
   7 Days. ${coinInfo["Currency"][0]["cmcPctChange7D"]}%`
           msg = {
             type: 'text',
-            text: textMsg
+            text: textMsg1+textMsg2+textMsg3
           }
             
           return client.replyMessage(event.replyToken, msg).then(() => {
