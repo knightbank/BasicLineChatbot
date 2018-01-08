@@ -63,8 +63,8 @@ return new Promise(function (resolve, reject) {
     })
 })
 }
-//module.exports = getCoinInfo;
-getCoinInfo("XMR")
-.then((result) => {
-    console.log(result);
-})
+module.exports = getCoinInfo;
+// getCoinInfo("XMR")
+// .then((result) => {
+//     console.log(result);
+// })

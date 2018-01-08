@@ -87,7 +87,7 @@ ex. "price btc"
     }
     else{
       switch(splitStr[0]){
-        case "price@cmc" :
+        case "price" :
         let cmcCalcDiff,ccpCalcDiff
         let cmcCalDiffPct,ccpCalcDiffPct
         let cmcDisplayCalcDiff,ccpDisplayCalcDiff
