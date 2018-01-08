@@ -185,11 +185,11 @@ Percent Change
             let displayCalDiffPct
             let usdRateBX
             if (bxInfo != undefined){
-              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[0]["THB"]) 
+              calcDiff = Number(bxInfo["last_price"]) - Number(ccpInfo[symbol]["THB"]) 
               calDiffPct = calcDiff*100/Number(bxInfo["last_price"])
               displayCalcDiff
               displayCalDiffPct
-              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[0]["USD"])
+              usdRateBX = Number(bxInfo["last_price"])/Number(ccpInfo[symbol]["USD"])
 
               if(calcDiff>=0){
                 displayCalcDiff = "+" + calcDiff.toLocaleString('en');
@@ -203,19 +203,19 @@ Percent Change
                 type: 'text',
                 text: 
   `${symbol} 
-Price(CryptoCompare) = $${Number(ccpInfo[0]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[0]["THB"]).toLocaleString('en')})
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
 Price(BX) = ฿${Number(bxInfo["last_price"]).toLocaleString('en')} 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}
   Diff: ${displayCalcDiff} (${displayCalDiffPct}%)`
               }
             }// if have bx info
             else{
-              usdRateBX = Number(ccpInfo[0]["THB"])/Number(ccpInfo[0]["USD"])
+              usdRateBX = Number(ccpInfo[symbol]["THB"])/Number(ccpInfo[symbol]["USD"])
               msg = {
                 type: 'text',
                 text: 
 `${symbol}
-Price(CryptoCompare) = $${Number(ccpInfo[0]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[0]["THB"]).toLocaleString('en')})
+Price(CryptoCompare) = $${Number(ccpInfo[symbol]["USD"]).toLocaleString('en') } (฿${Number(ccpInfo[symbol]["THB"]).toLocaleString('en')})
 Price(BX) = N/A 
   USD Rate: ฿${usdRateBX.toLocaleString('en')}`
               }
