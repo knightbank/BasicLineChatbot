@@ -53,6 +53,7 @@ let handleMessageEvent = event => {
     let clientText = event.message.text.toLowerCase()
     let splitStr = clientText.split(" ");
     let currencyList
+    let symbol
     //msg = getStringMessage(clientText);
     
     if(splitStr.length<=1){
@@ -92,7 +93,7 @@ ex. "price btc"
       
       switch(splitStr[0]){
         case "price@cmc" :
-        let symbol = splitStr[1].toUpperCase()
+        symbol = splitStr[1].toUpperCase()
 
         getCoinMarketCapInfo(symbol)
         .then((cmcInfo) => {
@@ -172,7 +173,7 @@ Percent Change
         break;
 /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
         case "price@ccp" :
-        let symbol = splitStr[1].toUpperCase()
+        symbol = splitStr[1].toUpperCase()
 
         getCryptoCompareInfo(symbol)
         .then((ccpInfo) => {
