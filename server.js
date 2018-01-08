@@ -109,26 +109,26 @@ ex. "price btc"
 
             ccpCalcDiff = Number(coinInfo["Currency"][0]["bxPriceTHB"]) - Number(coinInfo["Currency"][0]["ccpPriceTHB"])
             ccpCalcDiffPct = ccpCalcDiff*100/Number(coinInfo["Currency"][0]["bxPriceTHB"])
-            
+
             cmcUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["cmcPriceUSD"])
             ccpUsdRateBX = Number(coinInfo["Currency"][0]["bxPriceTHB"]) / Number(coinInfo["Currency"][0]["ccpPriceUSD"])
 
             if(cmcCalcDiff>=0){
               cmcDisplayCalcDiff = "+" + cmcCalcDiff.toLocaleString('en');
-              cmcDisplayCalDiffPct = "+" + cmcCalcDiff.toLocaleString('en');
+              cmcDisplayCalDiffPct = "+" + cmcCalDiffPct.toLocaleString('en');
             }
             else{
               cmcDisplayCalcDiff = cmcCalcDiff.toLocaleString('en');
-              cmcDisplayCalDiffPct = cmcCalcDiff.toLocaleString('en');
+              cmcDisplayCalDiffPct = cmcCalDiffPct.toLocaleString('en');
             }
 
             if(ccpCalcDiff>=0){
               ccpDisplayCalcDiff = "+" + ccpCalcDiff.toLocaleString('en');
-              ccpDisplayCalDiffPct = "+" + ccpCalcDiff.toLocaleString('en');
+              ccpDisplayCalDiffPct = "+" + ccpCalcDiffPct.toLocaleString('en');
             }
             else{
               ccpDisplayCalcDiff = ccpCalcDiff.toLocaleString('en');
-              ccpDisplayCalDiffPct = ccpCalcDiff.toLocaleString('en');
+              ccpDisplayCalDiffPct = ccpCalcDiffPct.toLocaleString('en');
             }
           }
           else{
