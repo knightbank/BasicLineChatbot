@@ -20,7 +20,7 @@ getCoinMarketCapInfo = (symbol) => {
           //if (err) return reject(err) // rejects the promise with `err` as the reason
         resolve(JsonObj)               // fulfills the promise with `data` as the value
             })
-      })          
+      })
     }
 module.exports = getCoinMarketCapInfo;
 //getCoinMarketCapInfo("btc");
