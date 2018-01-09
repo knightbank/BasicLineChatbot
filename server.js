@@ -132,7 +132,6 @@ ex. "price btc"
             }
 
             textMsgBx = `
-
 Price(bx) = ฿${bxPriceTHB} 
   USD Rate(CCP) :฿${ccpUsdRateBX.toLocaleString('en')}
   Diff(CCP): ${ccpDisplayCalcDiff} (${ccpDisplayCalDiffPct}%)`
@@ -152,17 +151,14 @@ Price(bx) = ฿${bxPriceTHB}
           textMsgConiInfo = `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})`
           
           textMsgCmc = `
-
 Price(CMC) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
   USD Rate = ฿${cmcUsdRate.toLocaleString('en')}`
 
   textMsgCcp = `
-
 Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
   USD Rate = ฿${ccpUsdRate.toLocaleString('en')}`
 
   textMsgPctChange = `
-
 Percent Change
   1 Hr. ${coinInfo["Currency"][0]["cmcPctChange1H"]}%
   24 Hr. ${coinInfo["Currency"][0]["cmcPctChange24H"]}% (bx:${coinInfo["Currency"][0]["bxPctChange"]}%)
