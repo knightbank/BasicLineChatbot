@@ -134,10 +134,10 @@ ex. "price btc"
             textMsgBx = `
 
 Price(bx) = ฿${bxPriceTHB} 
-  USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
-  Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
   USD Rate(CCP) :฿${ccpUsdRateBX.toLocaleString('en')}
   Diff(CCP): ${ccpDisplayCalcDiff} (${ccpDisplayCalDiffPct}%)`
+  // USD Rate(CMC) :฿${cmcUsdRateBX.toLocaleString('en')}
+  // Diff(CMC): ${cmcDisplayCalcDiff} (${cmcDisplayCalDiffPct}%)
           }
           else{
             bxPriceTHB = coinInfo["Currency"][0]["bxPriceTHB"]
