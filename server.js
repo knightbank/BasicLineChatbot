@@ -168,7 +168,7 @@ Percent Change
   24 Hr. ${coinInfo["Currency"][0]["cmcPctChange24H"]}% (bx:${coinInfo["Currency"][0]["bxPctChange"]}%)
   7 Days. ${coinInfo["Currency"][0]["cmcPctChange7D"]}%`
 
-          if(textMsgBx!=undefined){
+          if(textMsgBx === undefined){
             textMsg = textMsgConiInfo + textMsgCcp + textMsgPctChange
           }
           else {
