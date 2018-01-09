@@ -151,12 +151,12 @@ Price(bx) = ฿${bxPriceTHB}
           textMsgConiInfo = `${symbol} (${coinInfo["Currency"][0]["name"]}) (Rank:${coinInfo["Currency"][0]["rank"]})`
           
           textMsgCmc = `
-Price(CMC) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})
-  USD Rate = ฿${cmcUsdRate.toLocaleString('en')}`
+Price(CMC) = $${Number(coinInfo["Currency"][0]["cmcPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["cmcPriceTHB"]).toLocaleString('en')})`
+  //USD Rate = ฿${cmcUsdRate.toLocaleString('en')}`
 
   textMsgCcp = `
-Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})
-  USD Rate = ฿${ccpUsdRate.toLocaleString('en')}`
+Price(CCP) = $${Number(coinInfo["Currency"][0]["ccpPriceUSD"]).toLocaleString('en') } (฿${Number(coinInfo["Currency"][0]["ccpPriceTHB"]).toLocaleString('en')})`
+  //USD Rate = ฿${ccpUsdRate.toLocaleString('en')}`
 
   textMsgPctChange = `
 Percent Change
