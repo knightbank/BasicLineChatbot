@@ -85,7 +85,7 @@ ex. "price btc"
         default : 
       }//end switch
     }
-    else{
+    else{//command have more than 1 param ex. xxx yyyy
       switch(splitStr[0]){
         case "price" :
         let cmcCalcDiff,ccpCalcDiff
@@ -197,7 +197,7 @@ Percent Change
             });
         });
         break;
-      }
+      }// end switch else
     }
 
     return client.replyMessage(event.replyToken, msg).then(() => {
